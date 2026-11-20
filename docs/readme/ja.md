@@ -4,6 +4,13 @@
 
 Windows 7 の「メモ帳」を手本にした、macOS 用のプレーンテキストエディタです。.txt ファイルを開き、数行書いて、使い慣れたショートカットで保存できます。
 
+## macOS 版のダウンロード
+
+- **[Apple シリコン（M シリーズ）用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-arm64.pkg)**
+- **[Intel 用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-x86_64.pkg)**
+
+macOS 12 以降に対応しています。 [最新版を見る](https://github.com/leoars/My-Notepad/releases/latest)
+
 ![観察ノートを開いた編集画面。「橋」が選択され、下部にはカーソルの行と列が表示されています。](../screenshots/ja-editor.png)
 
 ## 開発のきっかけ

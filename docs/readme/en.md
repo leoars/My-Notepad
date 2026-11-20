@@ -4,6 +4,13 @@
 
 A plain-text editor for macOS inspired by Windows 7 Notepad. Open a .txt file, write a few lines and save with the shortcuts you remember.
 
+## Download for macOS
+
+- **[Download for Apple Silicon (M-series)](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-arm64.pkg)**
+- **[Download for Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-x86_64.pkg)**
+
+Requires macOS 12 or later. [View the latest release](https://github.com/leoars/My-Notepad/releases/latest)
+
 ![My Notepad showing a field notebook with “bridge” selected and the line and column visible at the bottom.](../screenshots/en-editor.png)
 
 ## Why My Notepad?

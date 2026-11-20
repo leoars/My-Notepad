@@ -4,6 +4,13 @@
 
 Un editor de texto plano para macOS inspirado en el Bloc de notas de Windows 7. Abre un archivo .txt, escribe unas líneas y guárdalas con los atajos de siempre.
 
+## Descargar para macOS
+
+- **[Descargar para Apple Silicon (serie M)](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-arm64.pkg)**
+- **[Descargar para Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-x86_64.pkg)**
+
+Requiere macOS 12 o posterior. [Ver la última versión](https://github.com/leoars/My-Notepad/releases/latest)
+
 ![Ventana del editor con un cuaderno de campo, la palabra «puente» seleccionada y la posición del cursor al pie.](../screenshots/es-editor.png)
 
 ## Por qué existe My Notepad

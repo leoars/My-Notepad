@@ -4,6 +4,13 @@
 
 Windows 7 메모장에서 영감을 받은 macOS용 일반 텍스트 편집기입니다. .txt 파일을 열고 몇 줄 적은 다음 익숙한 단축키로 저장하세요.
 
+## macOS용 다운로드
+
+- **[Apple Silicon(M 시리즈)용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-arm64.pkg)**
+- **[Intel용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-x86_64.pkg)**
+
+macOS 12 이상이 필요합니다. [최신 릴리스 보기](https://github.com/leoars/My-Notepad/releases/latest)
+
 ![현장 노트를 연 편집기. ‘다리’가 선택되어 있고 창 아래에 커서의 줄과 열이 표시됩니다.](../screenshots/ko-editor.png)
 
 ## 만든 이유

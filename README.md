@@ -4,6 +4,13 @@
 
 Um editor de texto simples para macOS inspirado no Bloco de Notas do Windows 7. Abra um .txt, escreva e salve com os atalhos que suas mãos já conhecem.
 
+## Baixar para macOS
+
+- **[Baixar para Apple Silicon (série M)](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-arm64.pkg)**
+- **[Baixar para Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-x86_64.pkg)**
+
+Requer macOS 12 ou posterior. [Ver a versão mais recente](https://github.com/leoars/My-Notepad/releases/latest)
+
 ![Janela do My Notepad com um caderno de campo aberto, a palavra “ponte” selecionada e a posição do cursor no rodapé.](docs/screenshots/pt-BR-editor.png)
 
 ## Por que este projeto existe?

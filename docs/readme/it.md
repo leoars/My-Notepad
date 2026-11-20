@@ -4,6 +4,13 @@
 
 Un editor di testo semplice per macOS ispirato al Blocco note di Windows 7. Apri un file .txt, scrivi qualche riga e salva con le scorciatoie che conosci già.
 
+## Scarica per macOS
+
+- **[Scarica per Apple Silicon (serie M)](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-arm64.pkg)**
+- **[Scarica per Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-x86_64.pkg)**
+
+Richiede macOS 12 o successivo. [Vedi la versione più recente](https://github.com/leoars/My-Notepad/releases/latest)
+
 ![Taccuino di campo aperto nell’editor con la parola «ponte» selezionata e la posizione del cursore in basso.](../screenshots/it-editor.png)
 
 ## Perché My Notepad?

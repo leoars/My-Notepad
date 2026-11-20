@@ -4,6 +4,13 @@
 
 Un éditeur de texte brut pour macOS, inspiré du Bloc-notes de Windows 7. Ouvrez un fichier .txt, écrivez quelques lignes et enregistrez-les avec vos raccourcis habituels.
 
+## Télécharger pour macOS
+
+- **[Télécharger pour Apple Silicon (série M)](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-arm64.pkg)**
+- **[Télécharger pour Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-x86_64.pkg)**
+
+Nécessite macOS 12 ou une version ultérieure. [Voir la dernière version](https://github.com/leoars/My-Notepad/releases/latest)
+
 ![Carnet de terrain ouvert dans My Notepad, avec le mot « pont » sélectionné et la position du curseur en bas de la fenêtre.](../screenshots/fr-editor.png)
 
 ## Pourquoi My Notepad ?

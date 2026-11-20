@@ -4,6 +4,13 @@
 
 Ein Texteditor für macOS nach dem Vorbild des Editors aus Windows 7. Eine .txt-Datei öffnen, ein paar Zeilen schreiben und mit den vertrauten Tastenkürzeln speichern.
 
+## Download für macOS
+
+- **[Für Apple Silicon (M-Serie) herunterladen](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-arm64.pkg)**
+- **[Für Intel herunterladen](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-x86_64.pkg)**
+
+Erfordert macOS 12 oder neuer. [Zur neuesten Version](https://github.com/leoars/My-Notepad/releases/latest)
+
 ![Feldnotizen im Editor mit dem markierten Wort „Brücke“ und der Cursorposition in der Statusleiste.](../screenshots/de-editor.png)
 
 ## Warum My Notepad?
