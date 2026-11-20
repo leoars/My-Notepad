@@ -89,3 +89,8 @@
 "about.notices" = "Mentions de tiers";
 "about.repository" = "Dépôt";
 "about.issues" = "Signaler un problème";
+"defaultEditor.question" = "Utiliser My Notepad par défaut pour les fichiers .txt ?";
+"defaultEditor.detail" = "Les fichiers .txt ouverts depuis le Finder s’ouvriront dans My Notepad.";
+"defaultEditor.accept" = "Utiliser par défaut";
+"defaultEditor.later" = "Pas maintenant";
+"defaultEditor.error" = "Impossible de modifier l’application par défaut.";

@@ -89,3 +89,8 @@
 "about.notices" = "제3자 고지";
 "about.repository" = "저장소";
 "about.issues" = "문제 신고";
+"defaultEditor.question" = "My Notepad를 .txt 파일의 기본 앱으로 설정할까요?";
+"defaultEditor.detail" = "Finder에서 .txt 파일을 열면 My Notepad에서 열립니다.";
+"defaultEditor.accept" = "기본 앱으로 설정";
+"defaultEditor.later" = "나중에";
+"defaultEditor.error" = "기본 앱을 변경할 수 없습니다.";

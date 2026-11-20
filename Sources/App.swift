@@ -69,6 +69,31 @@ final class Notepad: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTextVi
       return self.handleEditorShortcut(event) ? nil : event
     }
     if let pendingURL { _ = load(pendingURL) }
+    DispatchQueue.main.async { self.offerDefaultTextEditor() }
+  }
+
+  private func offerDefaultTextEditor() {
+    guard let type = UTType(filenameExtension: "txt"),
+      let identifier = Bundle.main.bundleIdentifier else { return }
+    let workspace = NSWorkspace.shared
+    if let current = workspace.urlForApplication(toOpen: type),
+      Bundle(url: current)?.bundleIdentifier == identifier { return }
+
+    let prompt = NSAlert()
+    prompt.messageText = L("defaultEditor.question")
+    prompt.informativeText = L("defaultEditor.detail")
+    prompt.addButton(withTitle: L("defaultEditor.accept"))
+    prompt.addButton(withTitle: L("defaultEditor.later")).keyEquivalent = "\u{1b}"
+    guard runAlert(prompt) == .alertFirstButtonReturn else { return }
+
+    workspace.setDefaultApplication(at: Bundle.main.bundleURL, toOpen: type) { error in
+      guard let error = error as NSError? else { return }
+      if error.domain == NSCocoaErrorDomain && error.code == NSUserCancelledError { return }
+      if error.domain == NSOSStatusErrorDomain && error.code == -128 { return }
+      DispatchQueue.main.async {
+        self.alert(L("defaultEditor.error"), error.localizedDescription)
+      }
+    }
   }
 
   func handleEditorShortcut(_ event: NSEvent) -> Bool {

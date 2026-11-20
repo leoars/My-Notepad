@@ -89,3 +89,8 @@
 "about.notices" = "Avisos de terceros";
 "about.repository" = "Repositorio";
 "about.issues" = "Informar de un problema";
+"defaultEditor.question" = "¿Usar My Notepad como aplicación predeterminada para los archivos .txt?";
+"defaultEditor.detail" = "Los archivos .txt que abras desde el Finder se abrirán en My Notepad.";
+"defaultEditor.accept" = "Usar por omisión";
+"defaultEditor.later" = "Ahora no";
+"defaultEditor.error" = "No se ha podido cambiar la aplicación predeterminada.";

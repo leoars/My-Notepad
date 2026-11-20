@@ -89,3 +89,8 @@
 "about.notices" = "第三者に関する表記";
 "about.repository" = "リポジトリ";
 "about.issues" = "問題を報告";
+"defaultEditor.question" = "My Notepad を .txt ファイルのデフォルトのアプリにしますか？";
+"defaultEditor.detail" = "Finder で .txt ファイルを開くと、My Notepad で表示されます。";
+"defaultEditor.accept" = "デフォルトに設定";
+"defaultEditor.later" = "今はしない";
+"defaultEditor.error" = "デフォルトのアプリを変更できませんでした。";

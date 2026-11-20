@@ -89,3 +89,8 @@
 "about.notices" = "Hinweise zu Drittanbietern";
 "about.repository" = "Repository";
 "about.issues" = "Problem melden";
+"defaultEditor.question" = "My Notepad als Standard für .txt-Dateien verwenden?";
+"defaultEditor.detail" = "Wenn du eine .txt-Datei im Finder öffnest, wird sie in My Notepad geöffnet.";
+"defaultEditor.accept" = "Als Standard festlegen";
+"defaultEditor.later" = "Nicht jetzt";
+"defaultEditor.error" = "Die Standard-App konnte nicht geändert werden.";
