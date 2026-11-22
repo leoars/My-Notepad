@@ -45,8 +45,6 @@
 "Line number:" = "줄 번호:";
 "The line number is out of range." = "줄 번호가 범위를 벗어났습니다.";
 "Untitled" = "제목 없음";
-"Minimize" = "최소화";
-"Maximize or restore" = "최대화 또는 복원";
 "Close" = "닫기";
 "Don’t Save" = "저장 안 함";
 "The file could not be opened." = "파일을 열 수 없습니다.";

@@ -45,8 +45,6 @@
 "Line number:" = "Zeilennummer:";
 "The line number is out of range." = "Die Zeilennummer liegt außerhalb des gültigen Bereichs.";
 "Untitled" = "Unbenannt";
-"Minimize" = "Minimieren";
-"Maximize or restore" = "Maximieren oder wiederherstellen";
 "Close" = "Schließen";
 "Don’t Save" = "Nicht speichern";
 "The file could not be opened." = "Die Datei konnte nicht geöffnet werden.";

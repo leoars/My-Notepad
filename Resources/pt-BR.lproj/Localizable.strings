@@ -45,8 +45,6 @@
 "Line number:" = "Número da linha:";
 "The line number is out of range." = "O número da linha está fora do intervalo.";
 "Untitled" = "Sem título";
-"Minimize" = "Minimizar";
-"Maximize or restore" = "Maximizar ou restaurar";
 "Close" = "Fechar";
 "Don’t Save" = "Não salvar";
 "The file could not be opened." = "Não foi possível abrir o arquivo.";

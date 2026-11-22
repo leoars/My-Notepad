@@ -49,9 +49,6 @@ final class Notepad: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTextVi
     window.titleVisibility = .hidden
     window.titlebarAppearsTransparent = true
     window.styleMask.insert(.fullSizeContentView)
-    for style in [NSWindow.ButtonType.closeButton, .miniaturizeButton, .zoomButton] {
-      window.standardWindowButton(style)?.isHidden = true
-    }
     window.minSize = NSSize(width: 360, height: 180)
     window.isReleasedWhenClosed = false
     window.tabbingMode = .disallowed
@@ -139,18 +136,6 @@ final class Notepad: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTextVi
       Bundle.main.url(forResource: "Caption", withExtension: "png").flatMap(
         NSImage.init(contentsOf:)) ?? NSApp.applicationIconImage
     caption.font = .systemFont(ofSize: 13)
-    let controls = NSStackView()
-    controls.spacing = 0
-    for (kind, title, action, width) in [
-      (CaptionButton.Kind.minimize, L("Minimize"), #selector(minimizeWindow), 27),
-      (.maximize, L("Maximize or restore"), #selector(zoomWindow), 27),
-      (.close, L("Close"), #selector(closeWindow), 44),
-    ] {
-      let b = CaptionButton(kind, title: title, target: self, action: action)
-      controls.addArrangedSubview(b)
-      b.widthAnchor.constraint(equalToConstant: CGFloat(width)).isActive = true
-      b.heightAnchor.constraint(equalToConstant: 19).isActive = true
-    }
     let menuBackground = NSView()
     menuBackground.wantsLayer = true
     menuBackground.layer?.backgroundColor = NSColor(white: 0.95, alpha: 1).cgColor
@@ -159,7 +144,7 @@ final class Notepad: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTextVi
       root.addSubview(v)
       v.translatesAutoresizingMaskIntoConstraints = false
     }
-    for v in [icon, caption, controls] {
+    for v in [icon, caption] {
       bar.addSubview(v)
       v.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -173,15 +158,14 @@ final class Notepad: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTextVi
       bar.leadingAnchor.constraint(equalTo: root.leadingAnchor),
       bar.trailingAnchor.constraint(equalTo: root.trailingAnchor),
       bar.heightAnchor.constraint(equalToConstant: 30),
-      icon.leadingAnchor.constraint(equalTo: bar.leadingAnchor, constant: 7),
+      // The standard macOS close, minimize and zoom buttons occupy the leading edge.
+      icon.leadingAnchor.constraint(equalTo: bar.leadingAnchor, constant: 78),
       icon.centerYAnchor.constraint(equalTo: bar.centerYAnchor),
       icon.widthAnchor.constraint(equalToConstant: 16),
       icon.heightAnchor.constraint(equalToConstant: 16),
       caption.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 5),
       caption.centerYAnchor.constraint(equalTo: bar.centerYAnchor),
-      caption.trailingAnchor.constraint(lessThanOrEqualTo: controls.leadingAnchor, constant: -5),
-      controls.trailingAnchor.constraint(equalTo: bar.trailingAnchor, constant: -5),
-      controls.topAnchor.constraint(equalTo: bar.topAnchor),
+      caption.trailingAnchor.constraint(lessThanOrEqualTo: bar.trailingAnchor, constant: -10),
       menuBackground.topAnchor.constraint(equalTo: bar.bottomAnchor),
       menuBackground.leadingAnchor.constraint(equalTo: root.leadingAnchor),
       menuBackground.trailingAnchor.constraint(equalTo: root.trailingAnchor),
@@ -223,8 +207,6 @@ final class Notepad: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTextVi
     scroll.documentView = editor
   }
   @objc func closeWindow() { window.performClose(nil) }
-  @objc func zoomWindow() { window.zoom(nil) }
-  @objc func minimizeWindow() { window.miniaturize(nil) }
   func applyWrap() {
     scroll.hasHorizontalScroller = !wrapping
     editor.isHorizontallyResizable = !wrapping
