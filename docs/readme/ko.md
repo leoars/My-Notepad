@@ -8,8 +8,8 @@ macOS용 간단한 텍스트 편집기입니다. .txt 파일을 열고, 쓰고, 
 
 ## macOS용 다운로드
 
-- **[Apple Silicon(M 시리즈)용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.2/My-Notepad-1.0.2-arm64.pkg)**
-- **[Intel용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.2/My-Notepad-1.0.2-x86_64.pkg)**
+- **[Apple Silicon(M 시리즈)용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-arm64.pkg)**
+- **[Intel용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-x86_64.pkg)**
 
 macOS 12 이상이 필요합니다. [최신 릴리스 보기](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -68,7 +68,7 @@ My Notepad는 군더더기 없는 텍스트 편집기가 아쉬워서 시작한 
 
 ### 인터페이스와 언어
 
-- macOS 메뉴 막대와 별도로 창 안에도 메뉴(파일, 편집, 서식, 보기, 도움말)가 있습니다. **Option** 키와 메뉴의 글자 키를 함께 누르면 키보드로 메뉴를 열 수 있습니다.
+- macOS 메뉴 막대와 별도로 창 안에도 메뉴(My Notepad, 파일, 편집, 서식, 보기, 도움말)가 있습니다. **Option** 키와 메뉴의 글자 키를 함께 누르면 키보드로 메뉴를 열 수 있습니다.
 - 창의 위치와 크기를 기억합니다.
 - 포르투갈어, 영어, 스페인어, 프랑스어, 독일어, 이탈리아어, 일본어, 한국어를 지원합니다.
 

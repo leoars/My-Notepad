@@ -8,8 +8,8 @@ macOS 用のシンプルなテキストエディタです。.txt ファイルを
 
 ## macOS 版のダウンロード
 
-- **[Apple シリコン（M シリーズ）用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.2/My-Notepad-1.0.2-arm64.pkg)**
-- **[Intel 用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.2/My-Notepad-1.0.2-x86_64.pkg)**
+- **[Apple シリコン（M シリーズ）用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-arm64.pkg)**
+- **[Intel 用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-x86_64.pkg)**
 
 macOS 12 以降に対応しています。 [最新版を見る](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -68,7 +68,7 @@ My Notepad は、余計なもののないテキストエディタが欲しいと
 
 ### インターフェイスと言語
 
-- macOS のメニューバーに加えて、ウインドウ内にもメニュー（ファイル、編集、書式、表示、ヘルプ）があります。**Option** とメニューの文字キーを押すと、キーボードでメニューを開けます。
+- macOS のメニューバーに加えて、ウインドウ内にもメニュー（My Notepad、ファイル、編集、書式、表示、ヘルプ）があります。**Option** とメニューの文字キーを押すと、キーボードでメニューを開けます。
 - ウインドウの位置とサイズは記憶されます。
 - ポルトガル語、英語、スペイン語、フランス語、ドイツ語、イタリア語、日本語、韓国語に対応しています。
 

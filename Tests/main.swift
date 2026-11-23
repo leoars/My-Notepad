@@ -144,7 +144,11 @@ func item(_ menuTitle: String, _ identifier: String) -> NSMenuItem? {
 do {
   let titles = NSApp.mainMenu?.items.map(\.title) ?? []
   check(titles == ["My Notepad", "File", "Edit", "Format", "View", "Window", "Help"], "the menu bar has the application menu, the five of the original, Window and Help")
-  check(app.menuStrip.arrangedSubviews.count == 5, "the strip inside the window keeps the five menus of the original")
+  let stripTitles = app.menuStrip.arrangedSubviews.compactMap { ($0 as? NSButton)?.title }
+  check(stripTitles.count == 6 && stripTitles.first == "My Notepad",
+    "the strip inside the window opens with the application's menu, then the five menus of the original")
+  check(app.menuStrip.arrangedSubviews.compactMap { $0 as? NSButton }.filter { $0.tag >= 0 }.map(\.tag) == [0, 1, 2, 3, 4],
+    "the access keys still reach the five menus")
   let own = NSApp.mainMenu?.items.first?.submenu?.items.map(\.title) ?? []
   check(own.contains("About My Notepad") && own.contains("Hide My Notepad") && own.contains("Hide Others")
     && own.contains("Show All") && own.last == "Quit My Notepad", "the application menu has About, the hiding commands and Quit")
@@ -270,6 +274,18 @@ do {
   panel.exact.state = .on
   panel.replaceAll()
   check(app.editor.string == "Bridge, footbridge and BRIDGE", "Replace All respects Match case")
+
+  // The layout of the Replace panel used to be ambiguous: about one opening in a hundred put the
+  // Replace with field right under Find what. Lay it out many times and compare.
+  var tops: Set<Int> = []
+  for _ in 0..<200 {
+    let replace = FinderPanel(owner: app, replacing: true)
+    guard let content = replace.panel.contentView else { break }
+    content.layoutSubtreeIfNeeded()
+    tops.insert(Int(content.bounds.height - replace.sub.convert(replace.sub.bounds, to: content).maxY))
+    replace.panel.close()
+  }
+  check(tops.count == 1, "the Replace panel always places Replace with in the same spot")
 }
 
 // Font size

@@ -8,8 +8,8 @@ A simple text editor for macOS. Open a .txt file, write and save with the shortc
 
 ## Download for macOS
 
-- **[Download for Apple Silicon (M-series)](https://github.com/leoars/My-Notepad/releases/download/1.0.2/My-Notepad-1.0.2-arm64.pkg)**
-- **[Download for Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.2/My-Notepad-1.0.2-x86_64.pkg)**
+- **[Download for Apple Silicon (M-series)](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-arm64.pkg)**
+- **[Download for Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-x86_64.pkg)**
 
 Requires macOS 12 or later. [View the latest release](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -68,7 +68,7 @@ Type `.LOG` on the first line of a file, save it and reopen it. My Notepad appen
 
 ### Interface and languages
 
-- Menus inside the window (File, Edit, Format, View, Help), in addition to the macOS menu bar. **Option** plus a menu’s letter opens it from the keyboard.
+- Menus inside the window (My Notepad, File, Edit, Format, View, Help), in addition to the macOS menu bar. **Option** plus a menu’s letter opens it from the keyboard.
 - The window position and size are remembered.
 - Available in Portuguese, English, Spanish, French, German, Italian, Japanese and Korean.
 

@@ -8,8 +8,8 @@ Un éditeur de texte simple pour macOS. Ouvrez un .txt, écrivez et enregistrez 
 
 ## Télécharger pour macOS
 
-- **[Télécharger pour Apple Silicon (série M)](https://github.com/leoars/My-Notepad/releases/download/1.0.2/My-Notepad-1.0.2-arm64.pkg)**
-- **[Télécharger pour Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.2/My-Notepad-1.0.2-x86_64.pkg)**
+- **[Télécharger pour Apple Silicon (série M)](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-arm64.pkg)**
+- **[Télécharger pour Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-x86_64.pkg)**
 
 Nécessite macOS 12 ou une version ultérieure. [Voir la dernière version](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -68,7 +68,7 @@ Saisissez `.LOG` sur la première ligne d’un fichier, enregistrez-le et ouvrez
 
 ### Interface et langues
 
-- Des menus dans la fenêtre (Fichier, Édition, Format, Affichage, Aide), en plus de la barre des menus de macOS. **Option** avec la lettre du menu l’ouvre au clavier.
+- Des menus dans la fenêtre (My Notepad, Fichier, Édition, Format, Affichage, Aide), en plus de la barre des menus de macOS. **Option** avec la lettre du menu l’ouvre au clavier.
 - La position et la taille de la fenêtre sont mémorisées.
 - Disponible en portugais, anglais, espagnol, français, allemand, italien, japonais et coréen.
 

@@ -101,7 +101,9 @@ final class Notepad: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTextVi
     if mods == .option, let key = event.charactersIgnoringModifiers?.lowercased(),
       let i = L("menu.accessKeys").map(String.init).firstIndex(of: key)
     {
-      showMenu(menuStrip.arrangedSubviews[i] as! NSButton)
+      if let button = menuStrip.arrangedSubviews.compactMap({ $0 as? NSButton }).first(where: { $0.tag == i }) {
+        showMenu(button)
+      }
       return true
     }
     if window.firstResponder === editor, !editor.hasMarkedText(),

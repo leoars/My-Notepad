@@ -65,6 +65,10 @@ final class FinderPanel: NSObject {
       rows.append((L("Direction:"), direction))
     }
     let grid = owner.form(rows)
+    // The buttons column is taller than the fields, so the grid is stretched. Without this, which
+    // row takes the extra height is ambiguous and the Replace with field sometimes moved up.
+    grid.row(at: 0).height = term.fittingSize.height
+    grid.row(at: 1).yPlacement = .bottom
     let buttons = NSStackView()
     buttons.orientation = .vertical
     buttons.alignment = .leading

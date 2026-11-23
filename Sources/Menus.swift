@@ -17,6 +17,14 @@ extension Notepad {
     app.addItem(
       withTitle: L("Quit My Notepad"), action: #selector(NSApplication.terminate(_:)),
       keyEquivalent: "q")
+    // The application's own menu opens the strip too: it holds what has no other place in the
+    // window (hiding the application, quitting).
+    let appButton = NSButton(title: "My Notepad", target: self, action: #selector(showAppMenu(_:)))
+    appButton.font = .systemFont(ofSize: 12)
+    appButton.isBordered = false
+    appButton.tag = -1
+    appButton.widthAnchor.constraint(equalToConstant: appButton.intrinsicContentSize.width + 12).isActive = true
+    menuStrip.addArrangedSubview(appButton)
     for title in [L("File"), L("Edit"), L("Format"), L("View"), L("Help")] {
       let menu = NSMenu(title: title)
       main.addItem(withTitle: title, action: nil, keyEquivalent: "").submenu = menu
@@ -128,6 +136,10 @@ extension Notepad {
     add(4, "About My Notepad") { self.showAbout() }
   }
   @objc func invoke(_ item: NSMenuItem) { handlers[item.tag]?() }
+  @objc func showAppMenu(_ sender: NSButton) {
+    NSApp.mainMenu?.items.first?.submenu?.popUp(
+      positioning: nil, at: NSPoint(x: 0, y: sender.isFlipped ? sender.bounds.maxY : 0), in: sender)
+  }
   @objc func showMenu(_ sender: NSButton) {
     menus[sender.tag].popUp(
       positioning: nil, at: NSPoint(x: 0, y: sender.isFlipped ? sender.bounds.maxY : 0), in: sender)
