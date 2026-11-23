@@ -8,8 +8,8 @@ Ein einfacher Texteditor für macOS. Eine .txt-Datei öffnen, schreiben und mit 
 
 ## Download für macOS
 
-- **[Für Apple Silicon (M-Serie) herunterladen](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-arm64.pkg)**
-- **[Für Intel herunterladen](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-x86_64.pkg)**
+- **[Für Apple Silicon (M-Serie) herunterladen](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-arm64.pkg)**
+- **[Für Intel herunterladen](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-x86_64.pkg)**
 
 Erfordert macOS 12 oder neuer. [Zur neuesten Version](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -27,7 +27,9 @@ My Notepad ist entstanden, weil uns ein Texteditor fehlte, der ohne Umwege zur S
 
 - **Neu**, **Öffnen…**, **Speichern** und **Speichern unter…**. Wenn Sie ein Dokument mit ungespeicherten Änderungen schließen oder ein anderes öffnen oder anlegen, fragt der Editor, ob die Änderungen gespeichert werden sollen.
 - Öffnet Textdateien aus dem Finder, auch wenn die App nicht läuft, und bietet beim ersten Öffnen an, Standardeditor für .txt-Dateien zu werden.
-- **Beenden** schließt das Fenster; die App wird dabei beendet.
+- **Neues Fenster** öffnet ein weiteres Dokument daneben. Eine Datei, die aus dem Finder oder aus My Explorer geöffnet wird, erhält ein eigenes Fenster, und das bereits geöffnete Dokument bleibt auf dem Bildschirm; ist die Datei schon geöffnet, kommt ihr Fenster nach vorn.
+- **Beenden** schließt das Fenster; die App wird mit dem letzten Fenster beendet.
+- **Einstellungen…** (`Cmd+,`) bietet **Vorherige Sitzung fortsetzen**: Beim Schließen des Fensters, Beenden der App oder Neustart des Mac wird nicht mehr nach dem Speichern gefragt; nicht Gespeichertes bleibt auf diesem Mac und ist beim nächsten Öffnen wieder da, jedes Dokument in seinem Fenster. Die Option ist anfangs eingeschaltet; damit wieder gefragt wird, wählen Sie **Neue Sitzung beginnen**.
 
 ### Bearbeiten
 
@@ -80,6 +82,7 @@ Die Tastenkürzel mit `Strg` funktionieren so, wie Sie es gewohnt sind; die Kür
 | --- | --- |
 | `Strg+N` · `Strg+O` · `Strg+S` | Neu, Öffnen und Speichern |
 | `Strg+Shift+S` | Speichern unter |
+| `Strg+Shift+N` | Neues Fenster |
 | `Strg+P` | Drucken |
 | `Strg+Z` · `Strg+Y` | Rückgängig und Wiederholen |
 | `Strg+X` · `Strg+C` · `Strg+V` · `Strg+A` | Ausschneiden, Kopieren, Einfügen und Alles auswählen |

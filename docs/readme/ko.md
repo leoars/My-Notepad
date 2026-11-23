@@ -8,8 +8,8 @@ macOS용 간단한 텍스트 편집기입니다. .txt 파일을 열고, 쓰고, 
 
 ## macOS용 다운로드
 
-- **[Apple Silicon(M 시리즈)용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-arm64.pkg)**
-- **[Intel용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-x86_64.pkg)**
+- **[Apple Silicon(M 시리즈)용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-arm64.pkg)**
+- **[Intel용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-x86_64.pkg)**
 
 macOS 12 이상이 필요합니다. [최신 릴리스 보기](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -27,7 +27,9 @@ My Notepad는 군더더기 없는 텍스트 편집기가 아쉬워서 시작한 
 
 - **새로 만들기**, **열기…**, **저장**, **다른 이름으로 저장…**. 변경 내용이 있는 문서를 닫거나 다른 문서를 열거나 새로 만들 때는 변경 내용을 저장할지 묻습니다.
 - 앱이 실행 중이 아니어도 Finder에서 텍스트 파일을 열 수 있으며, 처음 실행할 때 .txt 파일의 기본 편집기로 사용할지 묻습니다.
-- **끝내기** 를 선택하면 창이 닫히고 앱도 함께 종료됩니다.
+- **새 윈도우** 로 다른 문서를 나란히 열 수 있습니다. Finder나 My Explorer에서 연 파일은 자체 창에서 열리므로 이미 열려 있던 문서는 그대로 남습니다. 이미 열려 있는 파일이면 그 창이 앞으로 나옵니다.
+- **끝내기** 를 선택하면 창이 닫히고, 마지막 창을 닫으면 앱도 종료됩니다.
+- **설정…**(`Cmd+,`)에서 **이전 세션 계속하기** 를 선택하면 창을 닫거나 앱을 종료하거나 Mac을 재시동해도 저장할지 묻지 않습니다. 저장하지 않은 내용은 이 Mac에 보관되어 다음에 앱을 열 때 각 문서의 창으로 돌아옵니다. 이 옵션은 처음부터 켜져 있습니다. 다시 묻게 하려면 **새 세션 시작하기** 를 선택하세요.
 
 ### 편집
 
@@ -80,6 +82,7 @@ My Notepad는 군더더기 없는 텍스트 편집기가 아쉬워서 시작한 
 | --- | --- |
 | `Ctrl+N` · `Ctrl+O` · `Ctrl+S` | 새로 만들기, 열기, 저장 |
 | `Ctrl+Shift+S` | 다른 이름으로 저장 |
+| `Ctrl+Shift+N` | 새 윈도우 |
 | `Ctrl+P` | 인쇄 |
 | `Ctrl+Z` · `Ctrl+Y` | 실행 취소 및 다시 실행 |
 | `Ctrl+X` · `Ctrl+C` · `Ctrl+V` · `Ctrl+A` | 잘라내기, 복사, 붙여넣기, 모두 선택 |

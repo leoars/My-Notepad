@@ -1,7 +1,7 @@
 import AppKit
 
 let application = NSApplication.shared
-let delegate = Notepad()
+let delegate = NotepadApp()
 application.setActivationPolicy(.regular)
 application.delegate = delegate
 application.run()

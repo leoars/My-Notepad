@@ -8,8 +8,8 @@ Um editor de texto simples para macOS. Abra um .txt, escreva e salve com os atal
 
 ## Baixar para macOS
 
-- **[Baixar para Apple Silicon (série M)](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-arm64.pkg)**
-- **[Baixar para Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-x86_64.pkg)**
+- **[Baixar para Apple Silicon (série M)](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-arm64.pkg)**
+- **[Baixar para Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-x86_64.pkg)**
 
 Requer macOS 12 ou posterior. [Ver a versão mais recente](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -27,7 +27,9 @@ O My Notepad nasceu da falta que faz um editor de texto direto ao ponto. Para an
 
 - **Novo**, **Abrir…**, **Salvar** e **Salvar como…**. Ao fechar, abrir ou criar um documento com alterações, o editor pergunta se deseja salvá-las.
 - Abre arquivos de texto pelo Finder, mesmo com o aplicativo fechado, e oferece na primeira abertura ser o editor padrão de arquivos .txt.
-- **Sair** fecha a janela; o aplicativo encerra junto.
+- **Nova janela** abre outro documento ao lado. Um arquivo aberto pelo Finder ou pelo My Explorer ganha uma janela própria, sem tirar da tela o documento que já estava aberto; se ele já estiver aberto, a janela dele vem para a frente.
+- **Sair** fecha a janela; o aplicativo encerra quando a última janela é fechada.
+- **Ajustes…** (`Cmd+,`) oferece **Continuar a sessão anterior**: fechar a janela, encerrar o aplicativo ou reiniciar o Mac deixa de perguntar se deseja salvar, e o que não foi salvo fica guardado neste Mac e volta na próxima abertura, cada documento na sua janela. A opção vem ligada; para voltar a ser perguntado, escolha **Começar uma nova sessão**.
 
 ### Edição
 
@@ -80,6 +82,7 @@ Os atalhos com `Ctrl` funcionam como você já conhece; os de menu também aceit
 | --- | --- |
 | `Ctrl+N` · `Ctrl+O` · `Ctrl+S` | Novo, abrir e salvar |
 | `Ctrl+Shift+S` | Salvar como |
+| `Ctrl+Shift+N` | Nova janela |
 | `Ctrl+P` | Imprimir |
 | `Ctrl+Z` · `Ctrl+Y` | Desfazer e refazer |
 | `Ctrl+X` · `Ctrl+C` · `Ctrl+V` · `Ctrl+A` | Recortar, copiar, colar e selecionar tudo |

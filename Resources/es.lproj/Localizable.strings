@@ -5,6 +5,7 @@
 "Help" = "Ayuda";
 "Quit My Notepad" = "Salir de My Notepad";
 "New" = "Nuevo";
+"New Window" = "Nueva ventana";
 "Open…" = "Abrir…";
 "Save" = "Guardar";
 "Save As…" = "Guardar como…";
@@ -101,3 +102,10 @@
 "Minimize" = "Minimizar";
 "Zoom" = "Zoom";
 "about.suite" = "También en la suite My:";
+"Settings…" = "Ajustes…";
+"Settings" = "Ajustes";
+"settings.startup" = "Al abrir My Notepad";
+"settings.continue" = "Continuar la sesión anterior";
+"settings.continue.detail" = "Cerrar una ventana o salir de la aplicación no pregunta si quieres guardar. Lo que no se guardó vuelve la próxima vez que abras la aplicación.";
+"settings.new" = "Empezar una nueva sesión";
+"settings.new.detail" = "Antes de cerrar una ventana con cambios, la aplicación pregunta si quieres guardarlos.";

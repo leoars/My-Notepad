@@ -8,6 +8,10 @@ extension Notepad {
     appItem.submenu = app
     app.addItem(withTitle: L("About My Notepad"), action: #selector(showAbout), keyEquivalent: "").target = self
     app.addItem(.separator())
+    let settings = app.addItem(withTitle: L("Settings…"), action: #selector(showSettings), keyEquivalent: ",")
+    settings.target = self
+    settings.identifier = NSUserInterfaceItemIdentifier("Settings…")
+    app.addItem(.separator())
     app.addItem(withTitle: L("Hide My Notepad"), action: #selector(NSApplication.hide(_:)), keyEquivalent: "h")
     let others = app.addItem(
       withTitle: L("Hide Others"), action: #selector(NSApplication.hideOtherApplications(_:)), keyEquivalent: "h")
@@ -39,14 +43,10 @@ extension Notepad {
     window.minSize.width = max(window.minSize.width, menuStrip.fittingSize.width + 4)
     // The Window menu belongs to the menu bar of the system only: the strip inside the window
     // keeps the five menus of the original.
-    let windowMenu = NSMenu(title: L("Window"))
-    windowMenu.addItem(withTitle: L("Minimize"), action: #selector(NSWindow.performMiniaturize(_:)), keyEquivalent: "m")
-    windowMenu.addItem(withTitle: L("Zoom"), action: #selector(NSWindow.performZoom(_:)), keyEquivalent: "")
-    let windowItem = NSMenuItem(title: windowMenu.title, action: nil, keyEquivalent: "")
-    windowItem.submenu = windowMenu
-    main.insertItem(windowItem, at: main.numberOfItems - 1)
-    NSApp.windowsMenu = windowMenu
-    NSApp.mainMenu = main
+    windowMenuItem = NSMenuItem(title: Notepad.windowMenu.title, action: nil, keyEquivalent: "")
+    main.insertItem(windowMenuItem, at: main.numberOfItems - 1)
+    mainMenu = main
+    installMenus()
     func add(_ m: Int, _ title: String, _ key: String = "", _ act: @escaping () -> Void) {
       let i = NSMenuItem(title: L(title), action: #selector(invoke(_:)), keyEquivalent: key)
       i.identifier = NSUserInterfaceItemIdentifier(title)
@@ -63,6 +63,14 @@ extension Notepad {
     }
     func gap(_ m: Int) { menus[m].addItem(.separator()) }
     add(0, "New", "n") { if self.confirm() { self.install(TextFile(), nil) } }
+    add(0, "New Window", "n") { self.owner?.newDocument() }
+    let newWindow = menus[0].items.last!
+    newWindow.keyEquivalent = "N"
+    newWindow.keyEquivalentModifierMask = [.command, .shift]
+    shortcuts["^n"] = menus[0].items.first
+    shortcuts["^+n"] = newWindow
+    commandShortcuts["n"] = menus[0].items.first
+    commandShortcuts["+n"] = newWindow
     add(0, "Open…", "o", openFile)
     add(0, "Save", "s") { self.save() }
     add(0, "Save As…") { self.save(asNew: true) }
@@ -117,6 +125,7 @@ extension Notepad {
     add(2, "Word Wrap") {
       self.defaults.set(!self.wrapping, forKey: "wrap")
       self.applyWrap()
+      self.announcePreferences()
     }
     add(2, "Font…", "", fontDialog)
     gap(2)
@@ -125,6 +134,7 @@ extension Notepad {
     add(3, "Status Bar") {
       self.defaults.set(!self.defaults.bool(forKey: "status"), forKey: "status")
       self.applyWrap()
+      self.announcePreferences()
     }
     add(4, "View Help", "\u{f704}") {
       self.alert(
@@ -135,7 +145,25 @@ extension Notepad {
     gap(4)
     add(4, "About My Notepad") { self.showAbout() }
   }
+  /// Every window builds its own menus, whose commands act on its document; the menu bar shows
+  /// those of the key window. The Window menu, which lists the windows, is one for all of them.
+  static let windowMenu: NSMenu = {
+    let menu = NSMenu(title: L("Window"))
+    menu.addItem(withTitle: L("Minimize"), action: #selector(NSWindow.performMiniaturize(_:)), keyEquivalent: "m")
+    menu.addItem(withTitle: L("Zoom"), action: #selector(NSWindow.performZoom(_:)), keyEquivalent: "")
+    return menu
+  }()
+  func installMenus() {
+    let shared = Notepad.windowMenu
+    if let holder = shared.supermenu?.items.first(where: { $0.submenu === shared }), holder !== windowMenuItem {
+      holder.submenu = nil
+    }
+    windowMenuItem.submenu = shared
+    if NSApp.mainMenu !== mainMenu { NSApp.mainMenu = mainMenu }
+    NSApp.windowsMenu = shared
+  }
   @objc func invoke(_ item: NSMenuItem) { handlers[item.tag]?() }
+  @objc func showSettings() { owner?.showSettings(over: window) }
   @objc func showAppMenu(_ sender: NSButton) {
     NSApp.mainMenu?.items.first?.submenu?.popUp(
       positioning: nil, at: NSPoint(x: 0, y: sender.isFlipped ? sender.bounds.maxY : 0), in: sender)
@@ -151,6 +179,7 @@ extension Notepad {
       return !wrapping
     case "Word Wrap": item.state = wrapping ? .on : .off
     case "Go To…": return !wrapping
+    case "New Window", "Settings…": return owner != nil
     case "Undo": return editor.undoManager?.canUndo ?? false
     case "Redo": return editor.undoManager?.canRedo ?? false
     case "Cut", "Copy", "Delete": return editor.selectedRange().length > 0
@@ -170,6 +199,7 @@ extension Notepad {
     editor.font = font
     defaults.set(font.fontName, forKey: "fontName")
     defaults.set(font.pointSize, forKey: "fontSize")
+    announcePreferences()
   }
 
   func fontDialog() {

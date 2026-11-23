@@ -121,19 +121,15 @@ do {
 // MARK: The application, built without showing its window
 
 _ = NSApplication.shared
+// Drafts go to a folder of this run, never to the user's own.
+let draftFolder = FileManager.default.temporaryDirectory.appendingPathComponent("MyNotepadDrafts-\(getpid())")
+DraftStore.directory = draftFolder
 let settings = UserDefaults.standard
-let touched = ["wrap", "status", "fontName", "fontSize"]
+let touched = ["wrap", "status", "fontName", "fontSize", SettingsPanel.key]
 for key in touched { settings.removeObject(forKey: key) }
 settings.set(true, forKey: "status")
 
 let app = Notepad()
-app.window = NSWindow(
-  contentRect: NSRect(x: 0, y: 0, width: 760, height: 495),
-  styleMask: [.titled, .closable, .miniaturizable, .resizable], backing: .buffered, defer: true)
-app.layout()
-app.buildMenus()
-app.applyWrap()
-app.refresh()
 
 func menu(_ title: String) -> NSMenu? { NSApp.mainMenu?.items.first { $0.title == title }?.submenu }
 func item(_ menuTitle: String, _ identifier: String) -> NSMenuItem? {
@@ -155,6 +151,12 @@ do {
   let saveAs = item("File", "Save As…")
   check(saveAs?.keyEquivalent == "S" && saveAs?.keyEquivalentModifierMask == [.command, .shift], "Save As answers to Shift-Command-S")
   check(app.shortcuts["^+s"] === saveAs, "Save As also answers to Control-Shift-S")
+  let newWindow = item("File", "New Window")
+  check(newWindow?.keyEquivalent == "N" && newWindow?.keyEquivalentModifierMask == [.command, .shift]
+    && app.shortcuts["^+n"] === newWindow && app.commandShortcuts["+n"] === newWindow,
+    "New Window answers to Shift-Command-N and Control-Shift-N")
+  check(app.commandShortcuts["n"] === item("File", "New") && app.shortcuts["^n"] === item("File", "New"),
+    "New keeps Command-N and Control-N")
   check(item("Format", "Increase Font Size") != nil && item("Format", "Decrease Font Size") != nil, "Format has the two font size commands")
   check(menu("Window")?.items.map(\.title) == ["Minimize", "Zoom"] && NSApp.windowsMenu === menu("Window"), "the Window menu has Minimize and Zoom")
   check(menu("Help")?.items.last?.title == "About My Notepad", "About is also in Help, as in the original")
@@ -300,6 +302,200 @@ do {
   app.changeFontSize(by: 5000)
   check(app.editor.font?.pointSize == 999, "nor above 999")
 }
+
+// Several windows: files opened from outside never replace a document on screen
+do {
+  let folder = FileManager.default.temporaryDirectory.appendingPathComponent("MyNotepadTests-\(getpid())")
+  try! FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+  defer { try? FileManager.default.removeItem(at: folder) }
+  func write(_ name: String, _ text: String) -> URL {
+    let url = folder.appendingPathComponent(name)
+    try! Data(text.utf8).write(to: url)
+    return url
+  }
+  let first = write("first.txt", "one"), second = write("second.txt", "two")
+  let link = folder.appendingPathComponent("link.txt")
+  try! FileManager.default.createSymbolicLink(at: link, withDestinationURL: first)
+
+  let suite = NotepadApp()
+  suite.showsWindows = false
+  check(suite.open(first), "a file opened before launch is accepted")
+  check(suite.documents.isEmpty, "and waits for the launch")
+  suite.applicationDidFinishLaunching(Notification(name: NSApplication.didFinishLaunchingNotification))
+  check(suite.documents.count == 1 && suite.documents[0].editor.string == "one",
+    "at launch the file opens in the first window, without an empty one beside it")
+
+  let one = suite.documents[0]
+  one.insert("!")
+  check(suite.open(second) && suite.documents.count == 2, "a second file opens in a window of its own")
+  check(one.editor.string == "!one" && one.edited && one.url == first,
+    "and the document already open keeps its text and its changes")
+  check(suite.documents[1].editor.string == "two" && !suite.documents[1].edited, "the new window holds the second file")
+
+  check(suite.open(first) && suite.open(link) && suite.documents.count == 2,
+    "a file already open, also through a symbolic link, gets no second window")
+  check(one.editor.string == "!one", "and is not read again over the changes")
+
+  let blank = suite.newDocument()
+  check(suite.documents.count == 3 && blank.isPristine && blank.owner === suite, "New Window adds an empty window")
+  let third = write("third.txt", "three")
+  // Windows are not on screen here, so the frontmost document is the last one opened.
+  check(suite.open(third) && suite.documents.count == 3 && blank.editor.string == "three" && blank.url == third,
+    "an empty untitled window takes the next file instead of leaving it beside a new one")
+
+  check(!suite.documents[1].isPristine && Notepad().isPristine && !one.isPristine, "only an untitled window with no text counts as empty")
+
+  // Posting a notification leaves its observers in the autorelease pool, which this plain
+  // process drains only where it says so.
+  autoreleasepool {
+  settings.set(false, forKey: "wrap")
+  suite.documents.forEach { $0.applyWrap() }
+  settings.set(true, forKey: "wrap")
+  one.applyWrap()
+  one.announcePreferences()
+  check(suite.documents.allSatisfy { $0.editor.textContainer?.widthTracksTextView == true },
+    "Word Wrap changed in one window applies to every window")
+  settings.set(false, forKey: "wrap")
+  one.applyWrap()
+  one.announcePreferences()
+  one.changeFontSize(by: 3)
+  check(Set(suite.documents.map { $0.editor.font?.pointSize ?? 0 }).count == 1
+    && suite.documents[1].editor.font?.pointSize == one.editor.font?.pointSize,
+    "and so does the font")
+  one.changeFontSize(by: -3)
+  }
+
+  let closing = suite.documents[1]
+  closing.windowWillClose(Notification(name: NSWindow.willCloseNotification))
+  check(suite.documents.count == 2 && !suite.documents.contains { $0 === closing }, "a closed window leaves the list")
+  // The same, where every autorelease pool is drained as the application's event loop does.
+  weak var freed: Notepad?
+  autoreleasepool {
+    let lone = suite.newDocument()
+    freed = lone
+    var text = TextFile()
+    text.text = "gone"
+    lone.install(text, nil)
+    lone.changeFontSize(by: 1)
+    lone.changeFontSize(by: -1)
+    lone.windowWillClose(Notification(name: NSWindow.willCloseNotification))
+  }
+  autoreleasepool { _ = CFRunLoopRunInMode(.defaultMode, 0.2, false) }
+  check(freed == nil, "and is freed, with its document")
+  check(suite.open(second) && suite.documents.count == 3, "and its file can be opened again")
+
+  one.install(TextFile(), nil)
+  check(item("File", "New Window").map(one.validateMenuItem) == true, "New Window is available in a window of the application")
+  check(app.validateMenuItem(app.mainMenu.items[1].submenu!.items[1]) == false,
+    "and unavailable in a window that belongs to none")
+}
+
+// Drafts: what was not saved survives closing the window and quitting, and comes back
+do {
+  let folder = FileManager.default.temporaryDirectory.appendingPathComponent("MyNotepadDraftFiles-\(getpid())")
+  try! FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+  defer { try? FileManager.default.removeItem(at: folder) }
+  try? FileManager.default.removeItem(at: draftFolder)
+  func drafts() -> [Draft] { DraftStore.leftovers { _ in false } }
+  let saved = folder.appendingPathComponent("saved.txt")
+  try! Data("on disk".utf8).write(to: saved)
+
+  check(SettingsPanel.continuesSession, "keeping the session is on until turned off in Settings")
+  // Turned off: nothing is written, and closing a window with changes asks, as before.
+  settings.set(false, forKey: SettingsPanel.key)
+  let off = NotepadApp()
+  off.showsWindows = false
+  off.applicationDidFinishLaunching(Notification(name: NSApplication.didFinishLaunchingNotification))
+  off.documents[0].insert("not kept")
+  off.documents[0].scheduleDraft()
+  check(!off.documents[0].keepDraft() && !off.documents[0].draftPending && drafts().isEmpty,
+    "with it off no draft is written, so closing and quitting ask whether to save")
+  off.documents[0].windowWillClose(Notification(name: NSWindow.willCloseNotification))
+
+  // The Settings window turns it on and off.
+  let chooser = NotepadApp()
+  chooser.showsWindows = false
+  chooser.applicationDidFinishLaunching(Notification(name: NSApplication.didFinishLaunchingNotification))
+  chooser.documents[0].insert("typed before")
+  check(chooser.settings.newButton.state == .on && chooser.settings.continueButton.state == .off,
+    "Settings shows Start a new session chosen")
+  chooser.settings.choose(chooser.settings.continueButton)
+  check(SettingsPanel.continuesSession && drafts().count == 1 && drafts()[0].text == "typed before",
+    "choosing Continue the previous session keeps at once what the open windows have not saved")
+  chooser.settings.choose(chooser.settings.newButton)
+  check(!SettingsPanel.continuesSession && drafts().isEmpty, "choosing Start a new session removes those drafts")
+  chooser.documents[0].windowWillClose(Notification(name: NSWindow.willCloseNotification))
+  check(item("My Notepad", "Settings…")?.keyEquivalent == ",", "Settings is in the application menu, with Command-comma")
+  settings.set(true, forKey: SettingsPanel.key)
+
+  let before = NotepadApp()
+  before.showsWindows = false
+  before.applicationDidFinishLaunching(Notification(name: NSApplication.didFinishLaunchingNotification))
+  let draft = before.documents[0]
+  draft.insert("an idea")
+  draft.editor.setSelectedRange(NSRange(location: 3, length: 0))
+  check(draft.windowShouldClose(draft.window), "a window with an unsaved draft closes without asking")
+  draft.windowWillClose(Notification(name: NSWindow.willCloseNotification))
+  check(drafts().count == 1 && drafts().first?.text == "an idea" && drafts().first?.path == nil,
+    "and its text is kept as a draft")
+  let attrs = try? FileManager.default.attributesOfItem(atPath: DraftStore.url(for: drafts()[0].id).path)
+  check((attrs?[.posixPermissions] as? NSNumber)?.intValue == 0o600, "the draft is readable by the user only")
+
+  check(before.open(saved), "a saved file opens")
+  let changed = before.documents.last!
+  changed.editor.setSelectedRange(NSRange(location: 7, length: 0))
+  changed.insert(", edited")
+  let clean = before.newDocument()
+  check(before.applicationShouldTerminate(NSApp) == .terminateNow, "quitting asks nothing")
+  check(drafts().count == 2 && drafts().contains { $0.path == saved.path && $0.text == "on disk, edited" && $0.file.text == "on disk" },
+    "and keeps the changes made to a saved file, with the file as it was saved")
+  check(!drafts().contains { $0.id == clean.draftID }, "an empty window leaves no draft")
+  [changed, clean].forEach { $0.windowWillClose(Notification(name: NSWindow.willCloseNotification)) }
+
+  let after = NotepadApp()
+  after.showsWindows = false
+  after.applicationDidFinishLaunching(Notification(name: NSApplication.didFinishLaunchingNotification))
+  check(after.documents.count == 2, "the next launch brings back one window per draft, and no empty one")
+  let idea = after.documents.first { $0.url == nil }
+  let file = after.documents.first { $0.url.map(Notepad.identity) == Notepad.identity(of: saved) }
+  check(idea?.editor.string == "an idea" && idea?.edited == true && idea?.editor.selectedRange().location == 3,
+    "the untitled draft returns with its text, still unsaved, with the caret where it was")
+  check(file?.editor.string == "on disk, edited" && file?.edited == true && file?.window.title == "saved.txt - My Notepad",
+    "the saved file returns with its changes, still marked as edited")
+  check(after.open(saved) && after.documents.count == 2 && file?.editor.string == "on disk, edited",
+    "opening that file again shows the window with the changes")
+
+  check(file?.save() == true && (try? String(contentsOf: saved, encoding: .utf8)) == "on disk, edited",
+    "saving writes the changes to the file")
+  check(drafts().count == 1 && !drafts().contains { $0.path == saved.path }, "and the draft is gone")
+  idea?.editor.string = ""
+  idea?.textDidChange(Notification(name: NSText.didChangeNotification))
+  check(idea?.windowShouldClose(idea!.window) == true && drafts().isEmpty, "a draft emptied by hand is removed when its window closes")
+
+  // A draft of another copy of the app still running is not taken.
+  let foreign = Draft(id: UUID(), file: TextFile(), text: "theirs", path: nil, bookmark: nil, selection: 0,
+    frame: nil, saved: Date(), process: 42)
+  try! DraftStore.write(foreign)
+  check(DraftStore.leftovers { $0 == 42 }.isEmpty && DraftStore.leftovers { _ in false }.count == 1,
+    "a draft owned by a running copy is left to it")
+  DraftStore.remove(foreign.id)
+  try? FileManager.default.removeItem(at: folder.appendingPathComponent("unused"))
+  try! Data("not json".utf8).write(to: DraftStore.directory.appendingPathComponent("broken.json"))
+  check(drafts().isEmpty, "a damaged draft file is skipped")
+  after.documents.forEach { $0.windowWillClose(Notification(name: NSWindow.willCloseNotification)) }
+
+  // Turned off again, drafts left by an earlier run stay on disk but do not come back.
+  try! DraftStore.write(Draft(id: UUID(), file: TextFile(), text: "later", path: nil, bookmark: nil,
+    selection: 0, frame: nil, saved: Date(), process: 42))
+  settings.set(false, forKey: SettingsPanel.key)
+  let fresh = NotepadApp()
+  fresh.showsWindows = false
+  fresh.applicationDidFinishLaunching(Notification(name: NSApplication.didFinishLaunchingNotification))
+  check(fresh.documents.count == 1 && fresh.documents[0].isPristine && drafts().count == 1,
+    "with it off the app starts with an empty window and leaves old drafts alone")
+  fresh.documents[0].windowWillClose(Notification(name: NSWindow.willCloseNotification))
+}
+try? FileManager.default.removeItem(at: draftFolder)
 
 for key in touched { settings.removeObject(forKey: key) }
 settings.synchronize()

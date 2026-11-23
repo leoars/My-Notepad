@@ -5,6 +5,7 @@
 "Help" = "Help";
 "Quit My Notepad" = "Quit My Notepad";
 "New" = "New";
+"New Window" = "New Window";
 "Open…" = "Open…";
 "Save" = "Save";
 "Save As…" = "Save As…";
@@ -101,3 +102,10 @@
 "Minimize" = "Minimize";
 "Zoom" = "Zoom";
 "about.suite" = "Also in the My suite:";
+"Settings…" = "Settings…";
+"Settings" = "Settings";
+"settings.startup" = "When My Notepad starts";
+"settings.continue" = "Continue the previous session";
+"settings.continue.detail" = "Closing a window or quitting asks nothing about saving. What was not saved comes back the next time you open the app.";
+"settings.new" = "Start a new session";
+"settings.new.detail" = "Before closing a window with changes, the app asks whether to save them.";

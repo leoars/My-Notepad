@@ -5,6 +5,7 @@
 "Help" = "Ajuda";
 "Quit My Notepad" = "Encerrar My Notepad";
 "New" = "Novo";
+"New Window" = "Nova janela";
 "Open…" = "Abrir…";
 "Save" = "Salvar";
 "Save As…" = "Salvar como…";
@@ -101,3 +102,10 @@
 "Minimize" = "Minimizar";
 "Zoom" = "Zoom";
 "about.suite" = "Também na suíte My:";
+"Settings…" = "Ajustes…";
+"Settings" = "Ajustes";
+"settings.startup" = "Ao abrir o My Notepad";
+"settings.continue" = "Continuar a sessão anterior";
+"settings.continue.detail" = "Fechar uma janela ou encerrar o aplicativo não pergunta se deseja salvar. O que não foi salvo volta na próxima vez que você abrir o aplicativo.";
+"settings.new" = "Começar uma nova sessão";
+"settings.new.detail" = "Antes de fechar uma janela com alterações, o aplicativo pergunta se deseja salvá-las.";

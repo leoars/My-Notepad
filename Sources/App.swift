@@ -1,10 +1,161 @@
 import AppKit
 import UniformTypeIdentifiers
 
-final class Notepad: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTextViewDelegate,
-  NSMenuItemValidation
-{
+/// The application: it keeps one `Notepad` per window and decides where an opened file goes.
+final class NotepadApp: NSObject, NSApplicationDelegate {
+  private(set) var documents: [Notepad] = []
+  private var pending: [URL] = []
+  private var launched = false
+  /// Off in the tests, which build windows without putting them on screen.
+  var showsWindows = true
+
+  func applicationDidFinishLaunching(_ notification: Notification) {
+    if let url = Bundle.main.url(forResource: "Notepad", withExtension: "icns"),
+       let icon = NSImage(contentsOf: url) {
+      let imageView = NSImageView(image: icon)
+      imageView.imageScaling = .scaleProportionallyUpOrDown
+      NSApp.dockTile.contentView = imageView
+      NSApp.dockTile.display()
+    }
+    NSWindow.allowsAutomaticWindowTabbing = false
+    NSApp.appearance = NSAppearance(named: .aqua)
+    launched = true
+    let first = newDocument()
+    restoreDrafts()
+    NSApp.activate(ignoringOtherApps: true)
+    let waiting = pending
+    pending = []
+    for target in waiting { open(target) }
+    DispatchQueue.main.async { first.offerDefaultTextEditor() }
+  }
+
+  /// A new, empty window, placed a step below and to the right of the frontmost one.
+  @discardableResult func newDocument() -> Notepad {
+    let previous = frontDocument?.window
+    let document = Notepad()
+    document.owner = self
+    documents.append(document)
+    if showsWindows { document.show(after: previous) }
+    return document
+  }
+
+  /// The document of the frontmost window, or the last one opened when none is on screen.
+  var frontDocument: Notepad? {
+    for window in NSApp.orderedWindows where window.isVisible {
+      if let document = documents.first(where: { $0.window === window }) { return document }
+    }
+    return documents.last
+  }
+
+  /// Opens a file that came from outside the window: the Finder, My Explorer or the Dock. A file
+  /// already open brings its window forward; an empty untitled window takes the file; otherwise
+  /// the file gets a window of its own, so the document on screen is never asked to give way.
+  @discardableResult func open(_ target: URL) -> Bool {
+    guard launched else {
+      pending.append(target)
+      return true
+    }
+    let key = Notepad.identity(of: target)
+    if let open = documents.first(where: { $0.url.map(Notepad.identity) == key }) {
+      if showsWindows { open.window.makeKeyAndOrderFront(nil) }
+      return true
+    }
+    let front = frontDocument
+    if let front, front.isPristine { return front.load(target) }
+    let file: TextFile
+    do {
+      file = try Notepad.read(target)
+    } catch {
+      if let front {
+        front.alert(L("The file could not be opened."), error.localizedDescription)
+      }
+      return false
+    }
+    newDocument().install(file, target)
+    return true
+  }
+
+  func application(_ sender: NSApplication, openFile filename: String) -> Bool {
+    open(URL(fileURLWithPath: filename))
+  }
+
+  func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+    if !flag { frontDocument?.window.makeKeyAndOrderFront(nil) }
+    return true
+  }
+
+  func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {
+    let menu = NSMenu()
+    menu.addItem(withTitle: L("New Window"), action: #selector(newWindowFromDock), keyEquivalent: "").target = self
+    return menu
+  }
+
+  @objc private func newWindowFromDock() {
+    newDocument()
+    NSApp.activate(ignoringOtherApps: true)
+  }
+
+  /// One Settings window for the app. Turning the option on writes the drafts of the windows with
+  /// changes at once; turning it off removes them, so nothing comes back that was not asked for.
+  lazy var settings: SettingsPanel = {
+    let panel = SettingsPanel()
+    panel.changed = { [weak self] on in
+      for document in self?.documents ?? [] {
+        if on { document.keepDraft() } else { DraftStore.remove(document.draftID) }
+      }
+    }
+    return panel
+  }()
+
+  func showSettings(over window: NSWindow?) { settings.show(over: window) }
+
+  func closed(_ document: Notepad) {
+    documents.removeAll { $0 === document }
+  }
+
+  func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { true }
+
+  /// With Continue the previous session chosen in Settings, quitting, also when the Mac restarts or
+  /// logs out, asks nothing: what was not saved is kept as a draft and comes back at the next
+  /// launch. Otherwise, or when a draft cannot be written, it asks about each document with
+  /// changes, front to back, showing its window first.
+  func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+    let ordered = NSApp.orderedWindows.compactMap { window in documents.first { $0.window === window } }
+    for document in ordered + documents.filter({ d in !ordered.contains { $0 === d } }) where document.edited {
+      if document.keepDraft() { continue }
+      document.window.makeKeyAndOrderFront(nil)
+      guard document.confirm() else { return .terminateCancel }
+    }
+    return .terminateNow
+  }
+
+  /// Brings back, each in its own window, the drafts the last run left. The empty window of the
+  /// launch takes the first one.
+  func restoreDrafts() {
+    guard SettingsPanel.continuesSession else { return }
+    let me = ProcessInfo.processInfo.processIdentifier
+    let identifier = Bundle.main.bundleIdentifier
+    let drafts = DraftStore.leftovers { pid in
+      pid != me && NSRunningApplication(processIdentifier: pid)?.bundleIdentifier == identifier
+        && identifier != nil
+    }
+    for draft in drafts {
+      let target = documents.count == 1 && documents[0].isPristine ? documents[0] : newDocument()
+      target.restore(draft)
+    }
+  }
+}
+
+extension Notification.Name {
+  /// Word wrap, the status bar and the font are settings of the application: every window
+  /// follows a change made in any of them.
+  static let notepadPreferencesChanged = Notification.Name("NotepadPreferencesChanged")
+}
+
+/// One window and its document.
+final class Notepad: NSObject, NSWindowDelegate, NSTextViewDelegate, NSMenuItemValidation {
   var window: NSWindow!
+  weak var owner: NotepadApp?
   let editor = EditorTextView()
   let scroll = EditorScrollView()
   let status = NSTextField(labelWithString: "")
@@ -15,7 +166,6 @@ final class Notepad: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTextVi
   var statusHeight: NSLayoutConstraint!
   var file = TextFile()
   var url: URL?
-  var pendingURL: URL?
   var finder: FinderPanel?
   var query = ""
   var replacement = ""
@@ -31,27 +181,30 @@ final class Notepad: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTextVi
   var commandShortcuts: [String: NSMenuItem] = [:]
   var menuStrip = NSStackView()
   var menus: [NSMenu] = []
+  /// This window's menu bar, installed while the window is key.
+  var mainMenu = NSMenu()
+  var windowMenuItem = NSMenuItem()
   var keyMonitor: Any?
+  /// The draft this window writes while its document has changes not saved.
+  var draftID = UUID()
+  var draftPending = false
+  var isClosed = false
+  /// A file reopened through a security-scoped bookmark, accessed while the window is open.
+  var scopedURL: URL?
   var edited: Bool { editor.string != file.text }
   var name: String { url?.lastPathComponent ?? L("Untitled") }
-  func applicationDidFinishLaunching(_ notification: Notification) {
-    if let url = Bundle.main.url(forResource: "Notepad", withExtension: "icns"),
-       let icon = NSImage(contentsOf: url) {
-      let imageView = NSImageView(image: icon)
-      imageView.imageScaling = .scaleProportionallyUpOrDown
-      NSApp.dockTile.contentView = imageView
-      NSApp.dockTile.display()
-    }
-    NSWindow.allowsAutomaticWindowTabbing = false
-    NSApp.appearance = NSAppearance(named: .aqua)
+  /// An untitled window nobody has typed in: a file opened from outside may take it.
+  var isPristine: Bool { url == nil && editor.string.isEmpty && file.text.isEmpty }
+
+  override init() {
+    super.init()
     window = NSWindow(
       contentRect: NSRect(x: 0, y: 0, width: 760, height: 495),
       styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
-      backing: .buffered, defer: false)
+      backing: .buffered, defer: true)
     window.delegate = self
     window.titleVisibility = .hidden
     window.titlebarAppearsTransparent = true
-    window.styleMask.insert(.fullSizeContentView)
     window.minSize = NSSize(width: 360, height: 180)
     window.isReleasedWhenClosed = false
     window.tabbingMode = .disallowed
@@ -59,20 +212,35 @@ final class Notepad: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTextVi
     buildMenus()
     applyWrap()
     refresh()
-    window.center()
-    window.setFrameAutosaveName("My Notepad")
+    NotificationCenter.default.addObserver(
+      self, selector: #selector(preferencesChanged(_:)), name: .notepadPreferencesChanged, object: nil)
+  }
+
+  /// Puts the window on screen. The first one keeps the remembered frame; the others cascade from
+  /// the window in front, and start again at the top of the screen when they would leave it.
+  func show(after previous: NSWindow?) {
+    if let previous {
+      var frame = previous.frame
+      frame.origin.x += 22
+      frame.origin.y -= 22
+      if let visible = (previous.screen ?? NSScreen.main)?.visibleFrame,
+         frame.maxX > visible.maxX || frame.minY < visible.minY {
+        frame.origin = NSPoint(x: visible.minX + 22, y: visible.maxY - frame.height - 22)
+      }
+      window.setFrame(window.constrainFrameRect(frame, to: previous.screen), display: false)
+    } else {
+      window.center()
+      window.setFrameAutosaveName("My Notepad")
+    }
     window.makeKeyAndOrderFront(nil)
     window.makeFirstResponder(editor)
-    NSApp.activate(ignoringOtherApps: true)
     keyMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
       guard let self, NSApp.keyWindow == self.window, NSApp.modalWindow == nil else { return event }
       return self.handleEditorShortcut(event) ? nil : event
     }
-    if let pendingURL { _ = load(pendingURL) }
-    DispatchQueue.main.async { self.offerDefaultTextEditor() }
   }
 
-  private func offerDefaultTextEditor() {
+  func offerDefaultTextEditor() {
     guard let type = UTType(filenameExtension: "txt"),
       let identifier = Bundle.main.bundleIdentifier else { return }
     let workspace = NSWorkspace.shared
@@ -252,24 +420,116 @@ final class Notepad: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTextVi
     let column = end - (last.location == NSNotFound ? 0 : NSMaxRange(last)) + 1
     status.stringValue = String(format: L("status.position"), line, column)
   }
-  func textDidChange(_ notification: Notification) { refresh() }
-  func textViewDidChangeSelection(_ notification: Notification) { if window != nil { refresh() } }
-  func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { true }
-  func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
-    confirm() ? .terminateNow : .terminateCancel
+  func textDidChange(_ notification: Notification) {
+    refresh()
+    scheduleDraft()
   }
+  func textViewDidChangeSelection(_ notification: Notification) { if window != nil { refresh() } }
+  /// With the session kept, closing never asks: changes not saved stay in a draft. Otherwise, or
+  /// when the draft cannot be written, the window asks, so nothing is lost silently.
   func windowShouldClose(_ sender: NSWindow) -> Bool {
-    guard confirm() else { return false }
-    file.text = editor.string
+    if !keepDraft() {
+      guard confirm() else { return false }
+      file.text = editor.string
+    }
     return true
   }
-  func application(_ sender: NSApplication, openFile filename: String) -> Bool {
-    let target = URL(fileURLWithPath: filename)
-    if window == nil {
-      pendingURL = target
+  func windowWillClose(_ notification: Notification) {
+    isClosed = true
+    if let keyMonitor { NSEvent.removeMonitor(keyMonitor) }
+    keyMonitor = nil
+    finder?.panel.close()
+    finder = nil
+    NotificationCenter.default.removeObserver(self)
+    owner?.closed(self)
+    scopedURL?.stopAccessingSecurityScopedResource()
+    scopedURL = nil
+    // The menu commands hold the window's controller: let them go once the command that closed
+    // the window has returned, so a closed window is freed.
+    DispatchQueue.main.async { self.handlers.removeAll() }
+  }
+  func windowDidBecomeKey(_ notification: Notification) { installMenus() }
+  @objc func preferencesChanged(_ notification: Notification) {
+    guard notification.object as AnyObject? !== self else { return }
+    let size = defaults.double(forKey: "fontSize")
+    if let font = NSFont(name: defaults.string(forKey: "fontName") ?? "Menlo", size: size > 0 ? size : 13) {
+      editor.font = font
+    }
+    applyWrap()
+  }
+  /// Tells the other windows that word wrap, the status bar or the font changed.
+  func announcePreferences() {
+    NotificationCenter.default.post(name: .notepadPreferencesChanged, object: self)
+  }
+  /// Writes the draft about a second after the first change, then again after the next ones, so
+  /// even a Mac that stops at once loses at most the last second of typing.
+  func scheduleDraft() {
+    guard SettingsPanel.continuesSession, !draftPending else { return }
+    draftPending = true
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+      guard let self else { return }
+      self.draftPending = false
+      if !self.isClosed { self.keepDraft() }
+    }
+  }
+
+  /// Writes this window's draft, or removes it when nothing is left unsaved. False when the draft
+  /// could not be written, or when the session is not kept (see Settings): then closing asks.
+  @discardableResult func keepDraft() -> Bool {
+    guard edited else {
+      DraftStore.remove(draftID)
       return true
     }
-    return confirm() && load(target)
+    guard SettingsPanel.continuesSession else { return false }
+    let bookmark = url.flatMap {
+      (try? $0.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil))
+        ?? (try? $0.bookmarkData())
+    }
+    let draft = Draft(
+      id: draftID, file: file, text: editor.string, path: url?.path, bookmark: bookmark,
+      selection: editor.selectedRange().location, frame: NSStringFromRect(window.frame),
+      saved: Date(), process: ProcessInfo.processInfo.processIdentifier)
+    do {
+      try DraftStore.write(draft)
+      return true
+    } catch {
+      return false
+    }
+  }
+
+  /// Puts a draft back on screen: the file it came from, the text that was not saved, the caret
+  /// and the window's place. The draft is written again at once, now owned by this process.
+  func restore(_ draft: Draft) {
+    var target = draft.path.map { URL(fileURLWithPath: $0) }
+    if let bookmark = draft.bookmark {
+      var stale = false
+      if let resolved = (try? URL(resolvingBookmarkData: bookmark, options: .withSecurityScope, bookmarkDataIsStale: &stale))
+        ?? (try? URL(resolvingBookmarkData: bookmark, bookmarkDataIsStale: &stale)) {
+        target = resolved
+        if resolved.startAccessingSecurityScopedResource() { scopedURL = resolved }
+      }
+    }
+    draftID = draft.id
+    file = draft.file
+    url = target
+    editor.string = draft.text
+    let location = min(max(0, draft.selection), (draft.text as NSString).length)
+    editor.setSelectedRange(NSRange(location: location, length: 0))
+    editor.undoManager?.removeAllActions()
+    if let frame = draft.frame.map(NSRectFromString), frame.width >= window.minSize.width,
+       NSScreen.screens.contains(where: { $0.visibleFrame.intersects(frame) }) {
+      window.setFrame(frame, display: false)
+    }
+    editor.scrollRangeToVisible(editor.selectedRange())
+    refresh()
+    keepDraft()
+  }
+
+  /// The same file reached by another path (a symbolic link, a different spelling) is the same
+  /// document.
+  static func identity(of url: URL) -> URL { url.standardizedFileURL.resolvingSymlinksInPath() }
+  static func read(_ target: URL, forced: TextEncoding? = nil) throws -> TextFile {
+    try TextFile(data: Data(contentsOf: target), forced: forced)
   }
   func alert(_ title: String, _ detail: String = "") {
     let a = NSAlert()
@@ -290,6 +550,10 @@ final class Notepad: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTextVi
     }
   }
   func install(_ doc: TextFile, _ target: URL?) {
+    DraftStore.remove(draftID)
+    draftID = UUID()
+    scopedURL?.stopAccessingSecurityScopedResource()
+    scopedURL = nil
     file = doc
     url = target
     editor.string = doc.text
@@ -304,7 +568,7 @@ final class Notepad: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTextVi
   }
   func load(_ target: URL, forced: TextEncoding? = nil) -> Bool {
     do {
-      let doc = try TextFile(data: Data(contentsOf: target), forced: forced)
+      let doc = try Notepad.read(target, forced: forced)
       install(doc, target)
       return true
     } catch {
@@ -369,6 +633,7 @@ final class Notepad: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTextVi
       file = next
       url = target
       refresh()
+      if !edited { DraftStore.remove(draftID) }
       return true
     } catch {
       alert(L("The file could not be saved."), error.localizedDescription)

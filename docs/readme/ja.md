@@ -8,8 +8,8 @@ macOS 用のシンプルなテキストエディタです。.txt ファイルを
 
 ## macOS 版のダウンロード
 
-- **[Apple シリコン（M シリーズ）用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-arm64.pkg)**
-- **[Intel 用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-x86_64.pkg)**
+- **[Apple シリコン（M シリーズ）用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-arm64.pkg)**
+- **[Intel 用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-x86_64.pkg)**
 
 macOS 12 以降に対応しています。 [最新版を見る](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -27,7 +27,9 @@ My Notepad は、余計なもののないテキストエディタが欲しいと
 
 - **新規作成**、**開く…**、**保存**、**名前を付けて保存…**。変更のある文書を閉じるときや、別の文書を開いたり新しく作成したりするときは、変更を保存するかどうかを確認します。
 - アプリを起動していなくても、Finder からテキストファイルを開けます。初回起動時には、.txt ファイルの既定のエディタにするかどうかを選べます。
-- **終了** を選ぶとウインドウが閉じ、アプリも終了します。
+- **新規ウインドウ** で別の文書を並べて開けます。Finder や My Explorer から開いたファイルは専用のウインドウで開くので、すでに開いている文書はそのまま残ります。すでに開いているファイルなら、そのウインドウが前面に出ます。
+- **終了** を選ぶとウインドウが閉じます。最後のウインドウを閉じるとアプリも終了します。
+- **設定…**（`Cmd+,`）で **前回のセッションを続ける** を選ぶと、ウインドウを閉じたり、アプリを終了したり、Mac を再起動したりしても保存の確認が出ません。保存していない内容はこの Mac に残り、次にアプリを開いたときにそれぞれのウインドウに戻ります。この設定は最初からオンです。確認を出すには **新しいセッションを開始する** を選びます。
 
 ### 編集
 
@@ -80,6 +82,7 @@ My Notepad は、余計なもののないテキストエディタが欲しいと
 | --- | --- |
 | `Ctrl+N` · `Ctrl+O` · `Ctrl+S` | 新規作成・開く・保存 |
 | `Ctrl+Shift+S` | 名前を付けて保存 |
+| `Ctrl+Shift+N` | 新規ウインドウ |
 | `Ctrl+P` | 印刷 |
 | `Ctrl+Z` · `Ctrl+Y` | 元に戻す・やり直す |
 | `Ctrl+X` · `Ctrl+C` · `Ctrl+V` · `Ctrl+A` | 切り取り・コピー・貼り付け・すべて選択 |

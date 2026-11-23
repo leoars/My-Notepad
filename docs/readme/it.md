@@ -8,8 +8,8 @@ Un editor di testo semplice per macOS. Apri un .txt, scrivi e salva con le scorc
 
 ## Scarica per macOS
 
-- **[Scarica per Apple Silicon (serie M)](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-arm64.pkg)**
-- **[Scarica per Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-x86_64.pkg)**
+- **[Scarica per Apple Silicon (serie M)](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-arm64.pkg)**
+- **[Scarica per Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-x86_64.pkg)**
 
 Richiede macOS 12 o successivo. [Vedi la versione più recente](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -27,7 +27,9 @@ My Notepad è nato dalla mancanza di un editor di testo che vada dritto al punto
 
 - **Nuovo**, **Apri…**, **Salva** e **Salva con nome…**. Quando chiudi, apri o crei un documento con modifiche non salvate, l’editor chiede se vuoi salvarle.
 - Apre i file di testo dal Finder, anche con l’app chiusa, e alla prima apertura propone di diventare l’editor predefinito dei file .txt.
-- **Esci** chiude la finestra e, con essa, l’app.
+- **Nuova finestra** apre un altro documento accanto. Un file aperto dal Finder o da My Explorer ha una finestra tutta sua, senza togliere dallo schermo il documento già aperto; se il file è già aperto, la sua finestra passa in primo piano.
+- **Esci** chiude la finestra; l’app si chiude con l’ultima finestra.
+- **Impostazioni…** (`Cmd+,`) offre **Continua la sessione precedente**: chiudere la finestra, uscire dall’app o riavviare il Mac non chiede più di salvare, e ciò che non è stato salvato resta su questo Mac e torna alla prossima apertura, ogni documento nella sua finestra. L’opzione è attiva all’inizio; per tornare alla domanda, scegli **Inizia una nuova sessione**.
 
 ### Modifica
 
@@ -80,6 +82,7 @@ Le scorciatoie con `Ctrl` funzionano come le conosci già; quelle dei menu accet
 | --- | --- |
 | `Ctrl+N` · `Ctrl+O` · `Ctrl+S` | Nuovo, aprire e salvare |
 | `Ctrl+Shift+S` | Salvare con nome |
+| `Ctrl+Shift+N` | Nuova finestra |
 | `Ctrl+P` | Stampare |
 | `Ctrl+Z` · `Ctrl+Y` | Annullare e ripristinare |
 | `Ctrl+X` · `Ctrl+C` · `Ctrl+V` · `Ctrl+A` | Tagliare, copiare, incollare e selezionare tutto |

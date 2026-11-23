@@ -5,6 +5,7 @@
 "Help" = "ヘルプ";
 "Quit My Notepad" = "My Notepadを終了";
 "New" = "新規作成";
+"New Window" = "新規ウインドウ";
 "Open…" = "開く…";
 "Save" = "保存";
 "Save As…" = "名前を付けて保存…";
@@ -101,3 +102,10 @@
 "Minimize" = "しまう";
 "Zoom" = "拡大／縮小";
 "about.suite" = "My スイートのほかのアプリ：";
+"Settings…" = "設定…";
+"Settings" = "設定";
+"settings.startup" = "My Notepad の起動時";
+"settings.continue" = "前回のセッションを続ける";
+"settings.continue.detail" = "ウインドウを閉じたりアプリを終了したりするときに、保存するかどうかを確認しません。保存していない内容は、次にアプリを開いたときに戻ります。";
+"settings.new" = "新しいセッションを開始する";
+"settings.new.detail" = "変更のあるウインドウを閉じる前に、変更を保存するかどうかを確認します。";

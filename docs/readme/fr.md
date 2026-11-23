@@ -8,8 +8,8 @@ Un éditeur de texte simple pour macOS. Ouvrez un .txt, écrivez et enregistrez 
 
 ## Télécharger pour macOS
 
-- **[Télécharger pour Apple Silicon (série M)](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-arm64.pkg)**
-- **[Télécharger pour Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-x86_64.pkg)**
+- **[Télécharger pour Apple Silicon (série M)](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-arm64.pkg)**
+- **[Télécharger pour Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-x86_64.pkg)**
 
 Nécessite macOS 12 ou une version ultérieure. [Voir la dernière version](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -27,7 +27,9 @@ My Notepad est né du manque d’un éditeur de texte qui va droit au but. Pour 
 
 - **Nouveau**, **Ouvrir…**, **Enregistrer** et **Enregistrer sous…**. Lorsque vous fermez, ouvrez ou créez un document alors que des modifications sont en attente, l’éditeur vous demande si vous souhaitez les enregistrer.
 - Ouvre les fichiers texte depuis le Finder, même lorsque l’application est fermée, et propose à la première ouverture de devenir l’éditeur par défaut des fichiers .txt.
-- **Quitter** ferme la fenêtre, et l’application se ferme avec elle.
+- **Nouvelle fenêtre** ouvre un autre document à côté. Un fichier ouvert depuis le Finder ou depuis My Explorer obtient sa propre fenêtre, sans retirer de l’écran le document déjà ouvert ; s’il est déjà ouvert, sa fenêtre passe au premier plan.
+- **Quitter** ferme la fenêtre ; l’application se ferme avec la dernière fenêtre.
+- **Réglages…** (`Cmd+,`) propose **Reprendre la session précédente** : fermer la fenêtre, quitter l’application ou redémarrer le Mac ne demande plus d’enregistrer, et ce qui n’a pas été enregistré est conservé sur ce Mac et revient à la prochaine ouverture, chaque document dans sa fenêtre. L’option est activée par défaut ; pour que la question revienne, choisissez **Commencer une nouvelle session**.
 
 ### Édition
 
@@ -80,6 +82,7 @@ Les raccourcis avec `Ctrl` fonctionnent comme vous les connaissez déjà ; ceux 
 | --- | --- |
 | `Ctrl+N` · `Ctrl+O` · `Ctrl+S` | Nouveau, ouvrir et enregistrer |
 | `Ctrl+Shift+S` | Enregistrer sous |
+| `Ctrl+Shift+N` | Nouvelle fenêtre |
 | `Ctrl+P` | Imprimer |
 | `Ctrl+Z` · `Ctrl+Y` | Annuler et rétablir |
 | `Ctrl+X` · `Ctrl+C` · `Ctrl+V` · `Ctrl+A` | Couper, copier, coller et tout sélectionner |

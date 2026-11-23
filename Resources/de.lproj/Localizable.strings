@@ -5,6 +5,7 @@
 "Help" = "Hilfe";
 "Quit My Notepad" = "My Notepad beenden";
 "New" = "Neu";
+"New Window" = "Neues Fenster";
 "Open…" = "Öffnen…";
 "Save" = "Speichern";
 "Save As…" = "Speichern unter…";
@@ -101,3 +102,10 @@
 "Minimize" = "Im Dock ablegen";
 "Zoom" = "Zoomen";
 "about.suite" = "Ebenfalls in der My-Suite:";
+"Settings…" = "Einstellungen…";
+"Settings" = "Einstellungen";
+"settings.startup" = "Beim Start von My Notepad";
+"settings.continue" = "Vorherige Sitzung fortsetzen";
+"settings.continue.detail" = "Beim Schließen eines Fensters oder Beenden der App wird nicht nach dem Speichern gefragt. Nicht Gespeichertes ist beim nächsten Öffnen der App wieder da.";
+"settings.new" = "Neue Sitzung beginnen";
+"settings.new.detail" = "Vor dem Schließen eines geänderten Fensters fragt die App, ob die Änderungen gespeichert werden sollen.";

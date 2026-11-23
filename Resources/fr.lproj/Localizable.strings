@@ -5,6 +5,7 @@
 "Help" = "Aide";
 "Quit My Notepad" = "Quitter My Notepad";
 "New" = "Nouveau";
+"New Window" = "Nouvelle fenêtre";
 "Open…" = "Ouvrir…";
 "Save" = "Enregistrer";
 "Save As…" = "Enregistrer sous…";
@@ -101,3 +102,10 @@
 "Minimize" = "Placer dans le Dock";
 "Zoom" = "Réduire/agrandir";
 "about.suite" = "Aussi dans la suite My :";
+"Settings…" = "Réglages…";
+"Settings" = "Réglages";
+"settings.startup" = "Au démarrage de My Notepad";
+"settings.continue" = "Reprendre la session précédente";
+"settings.continue.detail" = "Fermer une fenêtre ou quitter l’application ne demande pas d’enregistrer. Ce qui n’a pas été enregistré revient à la prochaine ouverture de l’application.";
+"settings.new" = "Commencer une nouvelle session";
+"settings.new.detail" = "Avant de fermer une fenêtre modifiée, l’application demande s’il faut enregistrer les modifications.";

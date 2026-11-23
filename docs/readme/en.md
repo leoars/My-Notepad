@@ -8,8 +8,8 @@ A simple text editor for macOS. Open a .txt file, write and save with the shortc
 
 ## Download for macOS
 
-- **[Download for Apple Silicon (M-series)](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-arm64.pkg)**
-- **[Download for Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.3/My-Notepad-1.0.3-x86_64.pkg)**
+- **[Download for Apple Silicon (M-series)](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-arm64.pkg)**
+- **[Download for Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-x86_64.pkg)**
 
 Requires macOS 12 or later. [View the latest release](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -27,7 +27,9 @@ My Notepad was born from missing a text editor that gets straight to the point. 
 
 - **New**, **Open…**, **Save** and **Save As…**. When you close, open or create a document with unsaved changes, the editor asks whether you want to save them.
 - Opens text files from the Finder, even when the app is not running, and offers to become the default editor for .txt files the first time you open it.
-- **Exit** closes the window, and the app quits with it.
+- **New Window** opens another document alongside. A file opened from the Finder or from My Explorer gets a window of its own, so the document already on screen stays put; a file that is already open brings its window to the front.
+- **Exit** closes the window; the app quits when the last window closes.
+- **Settings…** (`Cmd+,`) offers **Continue the previous session**: closing the window, quitting the app or restarting the Mac no longer asks whether to save, and what was not saved is kept on this Mac and comes back the next time you open the app, each document in its own window. The option is on by default; to be asked again, choose **Start a new session**.
 
 ### Editing
 
@@ -80,6 +82,7 @@ The `Ctrl` shortcuts work the way you already know; the menu shortcuts also acce
 | --- | --- |
 | `Ctrl+N` · `Ctrl+O` · `Ctrl+S` | New, open and save |
 | `Ctrl+Shift+S` | Save as |
+| `Ctrl+Shift+N` | New window |
 | `Ctrl+P` | Print |
 | `Ctrl+Z` · `Ctrl+Y` | Undo and redo |
 | `Ctrl+X` · `Ctrl+C` · `Ctrl+V` · `Ctrl+A` | Cut, copy, paste and select all |
