@@ -13,6 +13,8 @@ Un éditeur de texte simple pour macOS. Ouvrez un .txt, écrivez et enregistrez 
 
 Nécessite macOS 12 ou une version ultérieure. [Voir la dernière version](https://github.com/leoars/My-Notepad/releases/latest)
 
+Pour installer My Explorer, My Notepad et My Paint en une seule fois, utilisez le [programme d’installation de la suite My](https://github.com/leoars/my-suite/blob/main/docs/readme/en.md).
+
 ![Carnet de terrain ouvert dans My Notepad, avec le mot « pont » sélectionné et la position du curseur en bas de la fenêtre.](../screenshots/fr-editor.png)
 
 ## Pourquoi My Notepad ?

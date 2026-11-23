@@ -13,6 +13,8 @@ macOS용 간단한 텍스트 편집기입니다. .txt 파일을 열고, 쓰고, 
 
 macOS 12 이상이 필요합니다. [최신 릴리스 보기](https://github.com/leoars/My-Notepad/releases/latest)
 
+My Explorer, My Notepad, My Paint를 한 번에 설치하려면 [My 스위트 설치 프로그램](https://github.com/leoars/my-suite/blob/main/docs/readme/en.md)을 사용하세요.
+
 ![현장 노트를 연 편집기. ‘다리’가 선택되어 있고 창 아래에 커서의 줄과 열이 표시됩니다.](../screenshots/ko-editor.png)
 
 ## 만든 이유

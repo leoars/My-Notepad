@@ -13,6 +13,8 @@ A simple text editor for macOS. Open a .txt file, write and save with the shortc
 
 Requires macOS 12 or later. [View the latest release](https://github.com/leoars/My-Notepad/releases/latest)
 
+To install My Explorer, My Notepad and My Paint in one go, use the [My suite installer](https://github.com/leoars/my-suite/blob/main/docs/readme/en.md).
+
 ![My Notepad showing a field notebook with “bridge” selected and the line and column visible at the bottom.](../screenshots/en-editor.png)
 
 ## Why My Notepad?

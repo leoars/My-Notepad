@@ -13,6 +13,8 @@ macOS 用のシンプルなテキストエディタです。.txt ファイルを
 
 macOS 12 以降に対応しています。 [最新版を見る](https://github.com/leoars/My-Notepad/releases/latest)
 
+My Explorer、My Notepad、My Paint をまとめてインストールするには、[My スイートのインストーラ](https://github.com/leoars/my-suite/blob/main/docs/readme/en.md)を使ってください。
+
 ![観察ノートを開いた編集画面。「橋」が選択され、下部にはカーソルの行と列が表示されています。](../screenshots/ja-editor.png)
 
 ## 開発のきっかけ
