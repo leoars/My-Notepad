@@ -81,7 +81,7 @@
 "menu.accessKeys" = "feovh";
 "help.body" = "「ファイル」でテキストを開いたり、保存や印刷をしたりできます。「編集」では検索、置換、指定行への移動ができます。「書式」でフォントと折り返しを設定できます。\n\nF3で次の一致箇所を検索し、F5で時刻と日付を挿入します。ファイルを開いた時刻を記録するには、先頭行に .LOG と入力して保存してください。";
 "about.version" = "バージョン %@";
-"about.description" = "Windows のクラシックなメモ帳をもとにした macOS 用テキストエディタです。";
+"about.description" = "なじみのあるメニューとショートカットで使える、macOS 用のシンプルなテキストエディタです。";
 "about.author" = "開発・メンテナンス：Leonardo Santos";
 "about.license" = "ライセンスを表示";
 "about.notices" = "第三者に関する表記";
@@ -92,3 +92,12 @@
 "defaultEditor.accept" = "デフォルトに設定";
 "defaultEditor.later" = "今はしない";
 "defaultEditor.error" = "デフォルトのアプリを変更できませんでした。";
+"Hide My Notepad" = "My Notepad を非表示";
+"Hide Others" = "ほかを非表示";
+"Show All" = "すべてを表示";
+"Increase Font Size" = "フォントを大きく";
+"Decrease Font Size" = "フォントを小さく";
+"Window" = "ウインドウ";
+"Minimize" = "しまう";
+"Zoom" = "拡大／縮小";
+"about.suite" = "My スイートのほかのアプリ：";

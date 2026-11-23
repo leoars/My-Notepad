@@ -2,12 +2,14 @@
 
 [Português (Brasil)](../../README.md) · [English](en.md) · [Español](es.md) · [Français](fr.md) · **Deutsch** · [Italiano](it.md) · [日本語](ja.md) · [한국어](ko.md)
 
-Ein Texteditor für macOS nach dem Vorbild des Editors aus Windows 7. Eine .txt-Datei öffnen, ein paar Zeilen schreiben und mit den vertrauten Tastenkürzeln speichern.
+**My-Suite:** [My Explorer](https://github.com/leoars/my-explorer/blob/main/README.de.md) · **My Notepad** · [My Paint](https://github.com/leoars/my-paint/blob/main/docs/readme/de.md)
+
+Ein einfacher Texteditor für macOS. Eine .txt-Datei öffnen, schreiben und mit den Tastenkürzeln speichern, die Ihre Hände längst kennen.
 
 ## Download für macOS
 
-- **[Für Apple Silicon (M-Serie) herunterladen](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-arm64.pkg)**
-- **[Für Intel herunterladen](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-x86_64.pkg)**
+- **[Für Apple Silicon (M-Serie) herunterladen](https://github.com/leoars/My-Notepad/releases/download/1.0.2/My-Notepad-1.0.2-arm64.pkg)**
+- **[Für Intel herunterladen](https://github.com/leoars/My-Notepad/releases/download/1.0.2/My-Notepad-1.0.2-x86_64.pkg)**
 
 Erfordert macOS 12 oder neuer. [Zur neuesten Version](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -15,30 +17,89 @@ Erfordert macOS 12 oder neuer. [Zur neuesten Version](https://github.com/leoars/
 
 ## Warum My Notepad?
 
-Nach dem Umstieg von Windows auf den Mac fehlte uns das kleine Fenster, in dem man schnell eine Adresse notieren oder eine Zeile in einer alten Datei ändern konnte. My Notepad bringt dieses Stück Alltag mit Swift und AppKit auf den Mac. Jedes Fenster enthält ein Dokument und fünf Menüs. Die Schriftwahl gilt für die Anzeige im Editor. Gespeichert wird reiner Text.
+My Notepad ist entstanden, weil uns ein Texteditor fehlte, der ohne Umwege zur Sache kommt. Um eine Adresse zu notieren oder eine Zeile in einer alten Datei zu ändern, genügen ein Fenster, fünf Menüs und der Cursor. Das Projekt setzt diese Arbeitsweise mit Swift und AppKit um. Jedes Fenster bearbeitet ein Dokument, und die Schriftwahl gilt für die Anzeige. Gespeichert wird reiner Text.
 
-## Beim Bearbeiten
+## Funktionen
 
-- Beim Suchen und Ersetzen kann das Suchfenster offen bleiben. Schalten Sie den Zeilenumbruch aus, um mit **Bearbeiten → Gehe zu…** zu einer Zeile zu springen. Unter **Ansicht → Statusleiste** lassen sich Zeile und Spalte einblenden.
-- Öffnen Sie Dateien in Windows-1252, UTF-8 oder UTF-16 (LE und BE) mit Zeilenenden von Windows, Mac oder Unix. Lässt sich ein Zeichen in der gewählten Codierung nicht darstellen, bietet der Editor an, die Datei als UTF-8 zu speichern.
-- Unter **Format** wählen Sie die Schriftart. Halten Sie die **Control-Taste** gedrückt und drehen Sie das Mausrad, um die Schriftgröße zu ändern. Für den Ausdruck lassen sich Seitenränder, Kopfzeile und Fußzeile einstellen.
+### Datei
+
+- **Neu**, **Öffnen…**, **Speichern** und **Speichern unter…**. Wenn Sie ein Dokument mit ungespeicherten Änderungen schließen oder ein anderes öffnen oder anlegen, fragt der Editor, ob die Änderungen gespeichert werden sollen.
+- Öffnet Textdateien aus dem Finder, auch wenn die App nicht läuft, und bietet beim ersten Öffnen an, Standardeditor für .txt-Dateien zu werden.
+- **Beenden** schließt das Fenster; die App wird dabei beendet.
+
+### Bearbeiten
+
+- **Rückgängig** und **Wiederholen**, **Ausschneiden**, **Kopieren**, **Einfügen**, **Löschen** und **Alles auswählen**.
+- **Uhrzeit/Datum** fügt Uhrzeit und Datum an der Cursorposition ein.
+- Wirklich reiner Text: keine Rechtschreibprüfung, keine automatischen Ersetzungen und keine versteckte Formatierung.
+
+### Suchen und Ersetzen
+
+- **Suchen…** mit Suchrichtung (aufwärts oder abwärts) und der Option, die Groß-/Kleinschreibung zu beachten. **Weitersuchen** wiederholt die Suche.
+- **Ersetzen…** mit **Ersetzen** und **Alle ersetzen**. Das Fenster übernimmt beim Öffnen den markierten Text und bleibt offen, während Sie arbeiten.
+- **Gehe zu…** springt zu einer Zeile, deren Nummer Sie angeben (bei ausgeschaltetem Zeilenumbruch).
 
 ![Das Fenster „Ersetzen“ mit den Einträgen „Brücke“ und „Fußgängerbrücke“.](../screenshots/de-replace.png)
 
+### Format und Ansicht
+
+- **Zeilenumbruch**, ein- oder ausgeschaltet.
+- **Schriftart…**: Schriftart, Schriftschnitt (Standard, Kursiv, Fett, Fett kursiv) und Größe. Die Auswahl gilt für die Anzeige und bleibt gespeichert.
+- Schriftgröße über die Tastatur oder mit gedrückter **Strg**-Taste und dem Mausrad ändern.
+- **Statusleiste** mit Zeile und Spalte des Cursors.
+
+### Codierungen und Zeilenenden
+
+- Öffnet und speichert ANSI (CP-1252), UTF-8, UTF-16 LE und UTF-16 BE, mit automatischer Erkennung oder manueller Auswahl beim Öffnen und beim Speichern.
+- Erkennt die Zeilenenden CRLF, LF und CR und speichert die Datei mit demselben Zeilenende.
+- Lässt sich ein Zeichen in der gewählten Codierung nicht darstellen, bietet der Editor an, die Datei als UTF-8 zu speichern.
+
+### Drucken
+
+- **Seite einrichten…**: Kopfzeile, Fußzeile, die vier Seitenränder, Papier und Ausrichtung.
+- Codes für Kopf- und Fußzeile: `&f` (Dateiname), `&p` (Seite), `&d` (Datum), `&t` (Uhrzeit), `&l`, `&c` und `&r` (Ausrichtung).
+- **Drucken…** verwendet die Schriftart des Editors.
+
+### Tagebuch als .txt-Datei
+
+Schreiben Sie `.LOG` in die erste Zeile einer Datei, speichern Sie sie und öffnen Sie sie erneut. Der Editor fügt am Ende Uhrzeit und Datum ein. Schreiben Sie Ihren Eintrag darunter und speichern Sie die Datei.
+
+### Oberfläche und Sprachen
+
+- Menüs im Fenster (Datei, Bearbeiten, Format, Ansicht, Hilfe), zusätzlich zur Menüleiste von macOS. **Option** und der Buchstabe eines Menüs öffnen es über die Tastatur.
+- Position und Größe des Fensters bleiben gespeichert.
+- Verfügbar auf Portugiesisch, Englisch, Spanisch, Französisch, Deutsch, Italienisch, Japanisch und Koreanisch.
+
 ### Tastenkürzel
+
+Die Tastenkürzel mit `Strg` funktionieren so, wie Sie es gewohnt sind; die Kürzel der Menübefehle lassen sich auch mit `Cmd` verwenden.
 
 | Tasten | Funktion |
 | --- | --- |
-| `Ctrl+F` · `F3` | Text suchen und zum nächsten Treffer springen |
-| `Ctrl+H` | Ersetzen öffnen |
-| `Ctrl+G` | Zu einer Zeile springen |
-| `Ctrl+Shift+←` / `→` | Die Auswahl wortweise erweitern oder verkleinern |
-| `Ctrl++` / `Ctrl+-` | Schrift vergrößern oder verkleinern |
+| `Strg+N` · `Strg+O` · `Strg+S` | Neu, Öffnen und Speichern |
+| `Strg+Shift+S` | Speichern unter |
+| `Strg+P` | Drucken |
+| `Strg+Z` · `Strg+Y` | Rückgängig und Wiederholen |
+| `Strg+X` · `Strg+C` · `Strg+V` · `Strg+A` | Ausschneiden, Kopieren, Einfügen und Alles auswählen |
+| `Strg+Insert` · `Shift+Insert` · `Shift+Delete` | Kopieren, Einfügen und Ausschneiden |
+| `Strg+F` · `F3` | Text suchen und zum nächsten Treffer springen |
+| `Strg+H` | Ersetzen öffnen |
+| `Strg+G` | Zu einer Zeile springen |
 | `F5` | Uhrzeit und Datum einfügen |
+| `Strg+←` / `→` | Den Cursor wortweise bewegen |
+| `Strg+Shift+←` / `→` | Die Auswahl wortweise erweitern oder verkleinern |
+| `Strg+Backspace` · `Strg+Delete` | Das vorherige oder das nächste Wort löschen |
+| `Home` · `End` · `Strg+Home` · `Strg+End` | Anfang und Ende der Zeile oder des Dokuments |
+| `Strg++` / `Strg+-` | Schrift vergrößern oder verkleinern |
+| `F1` | Hilfe |
 
-### Eine Textdatei als Tagebuch
+## Teil der My-Suite
 
-Schreiben Sie `.LOG` in die erste Zeile, speichern Sie die Datei und öffnen Sie sie erneut. Der Editor fügt am Ende Uhrzeit und Datum ein. Schreiben Sie Ihren Eintrag darunter und speichern Sie die Datei.
+My Notepad gehört zur My-Suite: drei einfache, geradlinige Apps für macOS, mit den vertrauten Menüs und Tastenkürzeln.
+
+- **My Notepad** (dieses Repository): ein einfacher Texteditor.
+- **[My Explorer](https://github.com/leoars/my-explorer/blob/main/README.de.md)**: ein Dateimanager mit Ordnerbaum, Tabs und einer Befehlsleiste. Ist My Notepad installiert, öffnet ein Doppelklick auf eine .txt-Datei in My Explorer den Text hier, und das Kontextmenü erhält den Eintrag **Mit My Notepad bearbeiten**.
+- **[My Paint](https://github.com/leoars/my-paint/blob/main/docs/readme/de.md)**: ein einfaches Bildbearbeitungsprogramm.
 
 ## Auf dem Mac bauen und installieren
 
@@ -47,6 +108,12 @@ Die Installationspakete sind für macOS 12 oder neuer auf Apple Silicon und Inte
 ```sh
 ./build.sh
 open "My Notepad.app"
+```
+
+So startest du die automatischen Tests:
+
+```sh
+./test.sh
 ```
 
 Der folgende Befehl erzeugt beide Installationspakete. Wählen Sie in `dist/` das Paket `arm64` für Apple Silicon oder `x86_64` für Intel. Öffnen Sie die `.pkg`-Datei, um die App in `/Applications` zu installieren.

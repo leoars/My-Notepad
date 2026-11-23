@@ -81,7 +81,7 @@
 "menu.accessKeys" = "dbfah";
 "help.body" = "Im Menü Datei können Sie Text öffnen, speichern und drucken. Unter Bearbeiten können Sie suchen, ersetzen und zu einer Zeile springen. Unter Format stellen Sie Schriftart und Zeilenumbruch ein.\n\nF3 sucht den nächsten Treffer. F5 fügt Uhrzeit und Datum ein. Um jedes Öffnen zu protokollieren, schreiben Sie .LOG in die erste Zeile und speichern Sie die Datei.";
 "about.version" = "Version %@";
-"about.description" = "Texteditor für macOS nach dem Vorbild des klassischen Windows-Editors.";
+"about.description" = "Einfacher Texteditor für macOS mit den vertrauten Menüs und Tastenkürzeln.";
 "about.author" = "Entwickelt und gepflegt von Leonardo Santos";
 "about.license" = "Lizenz anzeigen";
 "about.notices" = "Hinweise zu Drittanbietern";
@@ -92,3 +92,12 @@
 "defaultEditor.accept" = "Als Standard festlegen";
 "defaultEditor.later" = "Nicht jetzt";
 "defaultEditor.error" = "Die Standard-App konnte nicht geändert werden.";
+"Hide My Notepad" = "My Notepad ausblenden";
+"Hide Others" = "Andere ausblenden";
+"Show All" = "Alle einblenden";
+"Increase Font Size" = "Schrift vergrößern";
+"Decrease Font Size" = "Schrift verkleinern";
+"Window" = "Fenster";
+"Minimize" = "Im Dock ablegen";
+"Zoom" = "Zoomen";
+"about.suite" = "Ebenfalls in der My-Suite:";

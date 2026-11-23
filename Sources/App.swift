@@ -26,6 +26,9 @@ final class Notepad: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTextVi
   var printInfo = NSPrintInfo.shared.copy() as! NSPrintInfo
   var handlers: [Int: () -> Void] = [:]
   var shortcuts: [String: NSMenuItem] = [:]
+  /// The same commands by their Command key, carried out without the menu: the App Shortcuts of
+  /// the system can move a menu shortcut to another key, and then Command stops answering.
+  var commandShortcuts: [String: NSMenuItem] = [:]
   var menuStrip = NSStackView()
   var menus: [NSMenu] = []
   var keyMonitor: Any?
@@ -115,6 +118,15 @@ final class Notepad: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTextVi
       }
     }
     if window.firstResponder === editor, editor.handleEditingKey(event) { return true }
+    if mods == .command || mods == [.command, .shift] {
+      let key = (mods.contains(.shift) ? "+" : "") + (event.charactersIgnoringModifiers?.lowercased() ?? "")
+      guard let item = commandShortcuts[key] else { return false }
+      // Cut, Copy, Paste and Select All belong to whatever is being edited; outside the editor
+      // they are left to the menu and the responder chain.
+      if item.target == nil, window.firstResponder !== editor { return false }
+      if validateMenuItem(item) { invoke(item) } else { NSSound.beep() }
+      return true
+    }
     guard mods == .control || mods == [.control, .shift] || mods.isEmpty || mods == .shift else {
       return false
     }

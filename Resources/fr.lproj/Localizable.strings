@@ -81,7 +81,7 @@
 "menu.accessKeys" = "feoah";
 "help.body" = "Le menu Fichier permet d’ouvrir, d’enregistrer et d’imprimer du texte. Édition permet de rechercher, de remplacer ou d’atteindre une ligne. Format règle la police et le retour à la ligne.\n\nF3 recherche l’occurrence suivante. F5 insère l’heure et la date. Pour consigner chaque ouverture, saisissez .LOG sur la première ligne et enregistrez le fichier.";
 "about.version" = "Version %@";
-"about.description" = "Éditeur de texte pour macOS inspiré du Bloc-notes classique de Windows.";
+"about.description" = "Éditeur de texte simple pour macOS, avec les menus et les raccourcis de toujours.";
 "about.author" = "Créé et maintenu par Leonardo Santos";
 "about.license" = "Voir la licence";
 "about.notices" = "Mentions de tiers";
@@ -92,3 +92,12 @@
 "defaultEditor.accept" = "Utiliser par défaut";
 "defaultEditor.later" = "Pas maintenant";
 "defaultEditor.error" = "Impossible de modifier l’application par défaut.";
+"Hide My Notepad" = "Masquer My Notepad";
+"Hide Others" = "Masquer les autres";
+"Show All" = "Tout afficher";
+"Increase Font Size" = "Agrandir la police";
+"Decrease Font Size" = "Réduire la police";
+"Window" = "Fenêtre";
+"Minimize" = "Placer dans le Dock";
+"Zoom" = "Réduire/agrandir";
+"about.suite" = "Aussi dans la suite My :";

@@ -2,7 +2,7 @@ import Foundation
 
 enum TextEncoding: Int, CaseIterable {
   case ansi, unicode, bigEndian, utf8
-  var title: String { ["ANSI (Windows-1252)", "UTF-16 LE", "UTF-16 BE", "UTF-8"][rawValue] }
+  var title: String { ["ANSI (CP-1252)", "UTF-16 LE", "UTF-16 BE", "UTF-8"][rawValue] }
   var encoding: String.Encoding {
     [.windowsCP1252, .utf16LittleEndian, .utf16BigEndian, .utf8][rawValue]
   }

@@ -81,7 +81,7 @@
 "menu.accessKeys" = "aeoxj";
 "help.body" = "Use Arquivo para abrir, salvar ou imprimir texto. Em Editar, você pode localizar, substituir e ir para uma linha. Formatar ajusta a fonte e a quebra automática de linha.\n\nF3 repete a busca. F5 insere a hora e a data. Para registrar cada abertura, digite .LOG na primeira linha e salve o arquivo.";
 "about.version" = "Versão %@";
-"about.description" = "Editor de texto para macOS inspirado no Bloco de Notas clássico do Windows.";
+"about.description" = "Editor de texto simples para macOS, com os menus e os atalhos de sempre.";
 "about.author" = "Criado e mantido por Leonardo Santos";
 "about.license" = "Ver licença";
 "about.notices" = "Avisos de terceiros";
@@ -92,3 +92,12 @@
 "defaultEditor.accept" = "Usar como padrão";
 "defaultEditor.later" = "Agora não";
 "defaultEditor.error" = "Não foi possível alterar o aplicativo padrão.";
+"Hide My Notepad" = "Ocultar My Notepad";
+"Hide Others" = "Ocultar Outros";
+"Show All" = "Mostrar Tudo";
+"Increase Font Size" = "Aumentar a fonte";
+"Decrease Font Size" = "Diminuir a fonte";
+"Window" = "Janela";
+"Minimize" = "Minimizar";
+"Zoom" = "Zoom";
+"about.suite" = "Também na suíte My:";

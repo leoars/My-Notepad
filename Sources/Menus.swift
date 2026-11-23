@@ -8,6 +8,12 @@ extension Notepad {
     appItem.submenu = app
     app.addItem(withTitle: L("About My Notepad"), action: #selector(showAbout), keyEquivalent: "").target = self
     app.addItem(.separator())
+    app.addItem(withTitle: L("Hide My Notepad"), action: #selector(NSApplication.hide(_:)), keyEquivalent: "h")
+    let others = app.addItem(
+      withTitle: L("Hide Others"), action: #selector(NSApplication.hideOtherApplications(_:)), keyEquivalent: "h")
+    others.keyEquivalentModifierMask = [.command, .option]
+    app.addItem(withTitle: L("Show All"), action: #selector(NSApplication.unhideAllApplications(_:)), keyEquivalent: "")
+    app.addItem(.separator())
     app.addItem(
       withTitle: L("Quit My Notepad"), action: #selector(NSApplication.terminate(_:)),
       keyEquivalent: "q")
@@ -23,6 +29,15 @@ extension Notepad {
       menuStrip.addArrangedSubview(b)
     }
     window.minSize.width = max(window.minSize.width, menuStrip.fittingSize.width + 4)
+    // The Window menu belongs to the menu bar of the system only: the strip inside the window
+    // keeps the five menus of the original.
+    let windowMenu = NSMenu(title: L("Window"))
+    windowMenu.addItem(withTitle: L("Minimize"), action: #selector(NSWindow.performMiniaturize(_:)), keyEquivalent: "m")
+    windowMenu.addItem(withTitle: L("Zoom"), action: #selector(NSWindow.performZoom(_:)), keyEquivalent: "")
+    let windowItem = NSMenuItem(title: windowMenu.title, action: nil, keyEquivalent: "")
+    windowItem.submenu = windowMenu
+    main.insertItem(windowItem, at: main.numberOfItems - 1)
+    NSApp.windowsMenu = windowMenu
     NSApp.mainMenu = main
     func add(_ m: Int, _ title: String, _ key: String = "", _ act: @escaping () -> Void) {
       let i = NSMenuItem(title: L(title), action: #selector(invoke(_:)), keyEquivalent: key)
@@ -35,6 +50,7 @@ extension Notepad {
         let isFunction = (key.unicodeScalars.first?.value ?? 0) >= 0xf700
         i.keyEquivalentModifierMask = isFunction ? [] : .command
         shortcuts[(isFunction ? "" : "^") + key] = i
+        if !isFunction { commandShortcuts[key] = i }
       }
     }
     func gap(_ m: Int) { menus[m].addItem(.separator()) }
@@ -43,6 +59,9 @@ extension Notepad {
     add(0, "Save", "s") { self.save() }
     add(0, "Save As…") { self.save(asNew: true) }
     shortcuts["^+s"] = menus[0].items.last
+    commandShortcuts["+s"] = menus[0].items.last
+    menus[0].items.last?.keyEquivalent = "S"
+    menus[0].items.last?.keyEquivalentModifierMask = [.command, .shift]
     gap(0)
     add(0, "Page Setup…", "", pageSetup)
     add(0, "Print…", "p", printDocument)
@@ -54,6 +73,7 @@ extension Notepad {
     redo.keyEquivalent = "Z"
     redo.keyEquivalentModifierMask = [.command, .shift]
     shortcuts["^+z"] = redo
+    commandShortcuts["+z"] = redo
     shortcuts["^y"] = redo
     gap(1)
     // Standard responder-chain actions also work inside the search and file dialogs.
@@ -71,6 +91,12 @@ extension Notepad {
     add(1, "Find…", "f") { self.searchPanel(false) }
     add(1, "Find Next", "\u{f706}") { self.findNext() }
     add(1, "Replace…", "h") { self.searchPanel(true) }
+    // Command-H hides the application, as in every Mac app; Replace keeps Control-H and shows
+    // the Mac shortcut, Option-Command-F.
+    let replace = menus[1].items.last!
+    replace.keyEquivalent = "f"
+    replace.keyEquivalentModifierMask = [.command, .option]
+    commandShortcuts["h"] = nil
     add(1, "Go To…", "g", goToLine)
     gap(1)
     add(1, "Select All", "a") {
@@ -85,6 +111,9 @@ extension Notepad {
       self.applyWrap()
     }
     add(2, "Font…", "", fontDialog)
+    gap(2)
+    add(2, "Increase Font Size") { self.changeFontSize(by: 1) }
+    add(2, "Decrease Font Size") { self.changeFontSize(by: -1) }
     add(3, "Status Bar") {
       self.defaults.set(!self.defaults.bool(forKey: "status"), forKey: "status")
       self.applyWrap()

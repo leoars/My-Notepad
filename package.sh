@@ -17,13 +17,26 @@ for arch in arm64 x86_64; do
     work="$tmp/$arch"
     root="$work/root"
     app="$root/My Notepad.app"
-    mkdir -p "$root"
+    mkdir -p "$root" "$work/scripts"
     ./build.sh "$app" "$arch-apple-macos$minimum"
+    # O macOS põe ícones de formato livre numa placa cinza até o app abrir; o ícone personalizado
+    # do Finder evita a placa, mas não cabe na assinatura, então é aplicado depois de instalar.
+    cat > "$work/scripts/postinstall" <<'SH'
+#!/bin/bash
+app="$2/My Notepad.app"
+/usr/bin/osascript -l JavaScript -e 'function run(argv) {
+  ObjC.import("AppKit")
+  const icon = $.NSImage.alloc.initWithContentsOfFile(argv[0] + "/Contents/Resources/Notepad.icns")
+  $.NSWorkspace.sharedWorkspace.setIconForFileOptions(icon, argv[0], 0)
+}' "$app" || true
+exit 0
+SH
+    chmod +x "$work/scripts/postinstall"
     pkgbuild --analyze --root "$root" "$work/components.plist"
     plutil -replace 0.BundleIsRelocatable -bool false "$work/components.plist"
     pkgbuild --root "$root" --component-plist "$work/components.plist" --preserve-xattr \
         --identifier local.mynotepad.editor.pkg --version "$version" \
-        --install-location /Applications "$work/Editor.pkg"
+        --install-location /Applications --scripts "$work/scripts" "$work/Editor.pkg"
 
     cat > "$work/Distribution" <<XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -43,6 +56,7 @@ XML
     installed="$work/expanded/Editor.pkg/Payload/My Notepad.app"
     test "$(lipo -archs "$installed/Contents/MacOS/MyNotepad")" = "$arch"
     codesign --verify "$installed"
+    test -x "$work/expanded/Editor.pkg/Scripts/postinstall"
     cmp "$app/Contents/Resources/Notepad.icns" "$installed/Contents/Resources/Notepad.icns"
     if [[ -n "${DEVELOPER_ID_INSTALLER:-}" ]]; then
         codesign --verify --strict "$installed"

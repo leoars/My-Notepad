@@ -81,7 +81,7 @@
 "menu.accessKeys" = "feovh";
 "help.body" = "Use File to open, save or print text. Use Edit to find, replace or go to a line. Format changes the font and word wrap.\n\nF3 finds the next match. F5 inserts the time and date. To log each opening, type .LOG on the first line and save the file.";
 "about.version" = "Version %@";
-"about.description" = "A plain-text editor for macOS inspired by the classic Windows Notepad.";
+"about.description" = "A simple plain-text editor for macOS, with the menus and shortcuts you already know.";
 "about.author" = "Created and maintained by Leonardo Santos";
 "about.license" = "View license";
 "about.notices" = "Third-party notices";
@@ -92,3 +92,12 @@
 "defaultEditor.accept" = "Set as Default";
 "defaultEditor.later" = "Not Now";
 "defaultEditor.error" = "Couldn’t change the default application.";
+"Hide My Notepad" = "Hide My Notepad";
+"Hide Others" = "Hide Others";
+"Show All" = "Show All";
+"Increase Font Size" = "Increase Font Size";
+"Decrease Font Size" = "Decrease Font Size";
+"Window" = "Window";
+"Minimize" = "Minimize";
+"Zoom" = "Zoom";
+"about.suite" = "Also in the My suite:";

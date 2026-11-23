@@ -2,12 +2,14 @@
 
 [Português (Brasil)](../../README.md) · [English](en.md) · [Español](es.md) · **Français** · [Deutsch](de.md) · [Italiano](it.md) · [日本語](ja.md) · [한국어](ko.md)
 
-Un éditeur de texte brut pour macOS, inspiré du Bloc-notes de Windows 7. Ouvrez un fichier .txt, écrivez quelques lignes et enregistrez-les avec vos raccourcis habituels.
+**Suite My:** [My Explorer](https://github.com/leoars/my-explorer/blob/main/README.fr.md) · **My Notepad** · [My Paint](https://github.com/leoars/my-paint/blob/main/docs/readme/fr.md)
+
+Un éditeur de texte simple pour macOS. Ouvrez un .txt, écrivez et enregistrez avec les raccourcis que vos mains connaissent déjà.
 
 ## Télécharger pour macOS
 
-- **[Télécharger pour Apple Silicon (série M)](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-arm64.pkg)**
-- **[Télécharger pour Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.1/My-Notepad-1.0.1-x86_64.pkg)**
+- **[Télécharger pour Apple Silicon (série M)](https://github.com/leoars/My-Notepad/releases/download/1.0.2/My-Notepad-1.0.2-arm64.pkg)**
+- **[Télécharger pour Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.2/My-Notepad-1.0.2-x86_64.pkg)**
 
 Nécessite macOS 12 ou une version ultérieure. [Voir la dernière version](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -15,30 +17,89 @@ Nécessite macOS 12 ou une version ultérieure. [Voir la dernière version](http
 
 ## Pourquoi My Notepad ?
 
-En passant de Windows au Mac, il nous manquait cette petite fenêtre dans laquelle on pouvait noter une adresse ou corriger une ligne dans un vieux fichier. My Notepad retrouve cet usage avec Swift et AppKit. Une fenêtre contient un document et cinq menus. La police se règle dans l’éditeur et le fichier reste en texte brut.
+My Notepad est né du manque d’un éditeur de texte qui va droit au but. Pour noter une adresse ou corriger une ligne dans un vieux fichier, une fenêtre, cinq menus et le curseur suffisent. Le projet propose cette façon de travailler en Swift et AppKit. Chaque fenêtre édite un document, et la police choisie s’applique à l’affichage. Le fichier reste en texte brut.
 
-## Au quotidien
+## Fonctionnalités
 
-- Recherchez et remplacez du texte en gardant la fenêtre de recherche ouverte. Désactivez le retour automatique à la ligne pour utiliser **Édition → Atteindre…** ou activez **Affichage → Barre d’état** pour connaître la ligne et la colonne.
-- Ouvrez des fichiers Windows-1252, UTF-8 et UTF-16 (LE ou BE) avec des fins de ligne Windows, Mac ou Unix. Si l’encodage choisi ne représente pas tous les caractères, l’éditeur propose un enregistrement en UTF-8.
-- Choisissez la police dans **Format** ou maintenez **Ctrl** en tournant la molette pour en régler la taille. Pour l’impression, vous pouvez définir les marges, l’en-tête et le pied de page.
+### Fichier
+
+- **Nouveau**, **Ouvrir…**, **Enregistrer** et **Enregistrer sous…**. Lorsque vous fermez, ouvrez ou créez un document alors que des modifications sont en attente, l’éditeur vous demande si vous souhaitez les enregistrer.
+- Ouvre les fichiers texte depuis le Finder, même lorsque l’application est fermée, et propose à la première ouverture de devenir l’éditeur par défaut des fichiers .txt.
+- **Quitter** ferme la fenêtre, et l’application se ferme avec elle.
+
+### Édition
+
+- **Annuler** et **Rétablir**, **Couper**, **Copier**, **Coller**, **Supprimer** et **Tout sélectionner**.
+- **Heure/Date** insère l’heure et la date à la position du curseur.
+- Du vrai texte brut : pas de correcteur orthographique, pas de substitutions automatiques, pas de mise en forme cachée.
+
+### Rechercher et remplacer
+
+- **Rechercher…** avec le choix de la direction (vers le haut ou vers le bas) et l’option permettant de respecter la casse. **Rechercher le suivant** relance la recherche.
+- **Remplacer…** avec **Remplacer** et **Tout remplacer**. La fenêtre s’ouvre avec le texte sélectionné déjà saisi et reste ouverte pendant que vous travaillez.
+- **Atteindre…** vous amène à une ligne d’après son numéro (lorsque le retour automatique à la ligne est désactivé).
 
 ![Fenêtre Remplacer prête à remplacer « pont » par « passerelle ».](../screenshots/fr-replace.png)
 
+### Format et affichage
+
+- **Retour automatique à la ligne**, activé ou désactivé.
+- **Police…** : famille, style (normal, italique, gras, gras italique) et taille. Ce choix s’applique à l’affichage et il est mémorisé.
+- Taille de la police au clavier, ou en maintenant **Ctrl** et en tournant la molette de la souris.
+- **Barre d’état** indiquant la ligne et la colonne du curseur.
+
+### Encodages et fins de ligne
+
+- Ouvre et enregistre en ANSI (CP-1252), UTF-8, UTF-16 LE et UTF-16 BE, avec détection automatique ou choix manuel à l’ouverture comme à l’enregistrement.
+- Reconnaît les fins de ligne CRLF, LF et CR, et enregistre le fichier avec la même fin de ligne.
+- Si l’encodage choisi ne peut pas représenter un caractère, l’éditeur propose d’enregistrer en UTF-8.
+
+### Imprimer
+
+- **Mise en page…** : en-tête, pied de page, les quatre marges, papier et orientation.
+- Codes d’en-tête et de pied de page : `&f` (nom du fichier), `&p` (page), `&d` (date), `&t` (heure), `&l`, `&c` et `&r` (alignement).
+- **Imprimer…** utilise la police de l’éditeur.
+
+### Un journal en .txt
+
+Saisissez `.LOG` sur la première ligne d’un fichier, enregistrez-le et ouvrez-le de nouveau. L’éditeur ajoute l’heure et la date à la fin pour accueillir la prochaine entrée. Enregistrez-la pour la conserver.
+
+### Interface et langues
+
+- Des menus dans la fenêtre (Fichier, Édition, Format, Affichage, Aide), en plus de la barre des menus de macOS. **Option** avec la lettre du menu l’ouvre au clavier.
+- La position et la taille de la fenêtre sont mémorisées.
+- Disponible en portugais, anglais, espagnol, français, allemand, italien, japonais et coréen.
+
 ### Raccourcis clavier
+
+Les raccourcis avec `Ctrl` fonctionnent comme vous les connaissez déjà ; ceux des menus acceptent aussi `Cmd`.
 
 | Touches | Action |
 | --- | --- |
+| `Ctrl+N` · `Ctrl+O` · `Ctrl+S` | Nouveau, ouvrir et enregistrer |
+| `Ctrl+Shift+S` | Enregistrer sous |
+| `Ctrl+P` | Imprimer |
+| `Ctrl+Z` · `Ctrl+Y` | Annuler et rétablir |
+| `Ctrl+X` · `Ctrl+C` · `Ctrl+V` · `Ctrl+A` | Couper, copier, coller et tout sélectionner |
+| `Ctrl+Insert` · `Shift+Insert` · `Shift+Delete` | Copier, coller et couper |
 | `Ctrl+F` · `F3` | Rechercher puis passer à l’occurrence suivante |
 | `Ctrl+H` | Ouvrir la fenêtre Remplacer |
 | `Ctrl+G` | Atteindre une ligne |
-| `Ctrl+Shift+←` / `→` | Étendre ou réduire la sélection mot par mot |
-| `Ctrl++` / `Ctrl+-` | Agrandir ou réduire la police |
 | `F5` | Insérer l’heure et la date |
+| `Ctrl+←` / `→` | Déplacer le curseur mot par mot |
+| `Ctrl+Shift+←` / `→` | Étendre ou réduire la sélection mot par mot |
+| `Ctrl+Backspace` · `Ctrl+Delete` | Effacer le mot précédent ou le mot suivant |
+| `Home` · `End` · `Ctrl+Home` · `Ctrl+End` | Début et fin de la ligne ou du document |
+| `Ctrl++` / `Ctrl+-` | Agrandir ou réduire la police |
+| `F1` | Aide |
 
-### Tenir un journal en texte brut
+## Un élément de la suite My
 
-Saisissez `.LOG` sur la première ligne, enregistrez le fichier et ouvrez-le de nouveau. L’éditeur ajoute l’heure et la date à la fin pour accueillir la prochaine entrée. Enregistrez-la pour la conserver.
+My Notepad fait partie de la suite My : trois applications pour macOS simples et directes, avec les menus et les raccourcis de toujours.
+
+- **My Notepad** (ce dépôt) : éditeur de texte simple.
+- **[My Explorer](https://github.com/leoars/my-explorer/blob/main/README.fr.md)** : gestionnaire de fichiers avec arborescence des dossiers, onglets et barre de commandes. Lorsque My Notepad est installé, un double-clic sur un fichier .txt dans My Explorer ouvre le texte ici, et le menu contextuel s’enrichit de **Modifier avec My Notepad**.
+- **[My Paint](https://github.com/leoars/my-paint/blob/main/docs/readme/fr.md)** : éditeur d’images simple.
 
 ## Compiler et installer sur Mac
 
@@ -47,6 +108,12 @@ Les paquets ciblent macOS 12 ou ultérieur sur Apple Silicon et Intel. La compil
 ```sh
 ./build.sh
 open "My Notepad.app"
+```
+
+Pour lancer les tests automatiques :
+
+```sh
+./test.sh
 ```
 
 Pour créer les deux paquets d’installation, exécutez la commande ci-dessous. Dans `dist/`, choisissez `arm64` pour Apple Silicon ou `x86_64` pour Intel. Ouvrez le fichier `.pkg` pour installer l’application dans `/Applications`.

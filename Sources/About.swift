@@ -65,6 +65,8 @@ extension Notepad {
     let header = NSStackView(views: [icon, details])
     header.alignment = .top
     header.spacing = 20
+    let suite = NSStackView(views: [text(L("about.suite")), link("My Explorer", github + "/my-explorer"), text("·"),
+                                   link("My Paint", github + "/my-paint")])
     let legalLinks = NSStackView(views: [link(L("about.license"), "LICENSE"), text("·"),
                                         link(L("about.notices"), "THIRD_PARTY_NOTICES.md")])
     let repo = github + "/My-Notepad"
@@ -74,16 +76,29 @@ extension Notepad {
                                     link(L("about.issues"), repo + "/issues"), NSView(), close])
     let rule = NSBox()
     rule.boxType = .separator
-    let content = column([header, rule, text("© 2026 Leonardo Santos  ·  Apache License 2.0"),
+    let content = column([header, rule, suite, text("© 2026 Leonardo Santos  ·  Apache License 2.0"),
                           legalLinks, footer], spacing: 6)
     content.setCustomSpacing(18, after: header)
     content.setCustomSpacing(14, after: rule)
+    content.setCustomSpacing(12, after: suite)
     content.setCustomSpacing(16, after: legalLinks)
     footer.widthAnchor.constraint(equalTo: header.widthAnchor).isActive = true
     rule.widthAnchor.constraint(equalTo: header.widthAnchor).isActive = true
-    content.edgeInsets = .init(top: 20, left: 22, bottom: 14, right: 22)
-    panel.contentView = content
-    panel.setContentSize(content.fittingSize)
+    // The margins are constraints of a container, not insets of the stack: with insets the
+    // fitting size came out narrower than the rows, and the Close button, the only thing
+    // aligned to the right, ended up against the edge of the window.
+    let container = NSView()
+    content.translatesAutoresizingMaskIntoConstraints = false
+    container.addSubview(content)
+    NSLayoutConstraint.activate([
+      content.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 22),
+      content.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -22),
+      content.topAnchor.constraint(equalTo: container.topAnchor, constant: 20),
+      content.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -18),
+      footer.trailingAnchor.constraint(equalTo: header.trailingAnchor),
+    ])
+    panel.contentView = container
+    panel.setContentSize(container.fittingSize)
     panel.isFloatingPanel = false
     presentingDialog(panel) {
       centerDialog(panel)

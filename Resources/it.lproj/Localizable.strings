@@ -81,7 +81,7 @@
 "menu.accessKeys" = "fmova";
 "help.body" = "Usa File per aprire, salvare o stampare il testo. In Modifica puoi cercare, sostituire o passare a una riga. In Formato puoi cambiare il carattere e impostare l’a capo automatico.\n\nF3 cerca l’occorrenza successiva. F5 inserisce ora e data. Per registrare ogni apertura, scrivi .LOG nella prima riga e salva il file.";
 "about.version" = "Versione %@";
-"about.description" = "Editor di testo per macOS ispirato al classico Blocco note di Windows.";
+"about.description" = "Editor di testo semplice per macOS, con i menu e le scorciatoie di sempre.";
 "about.author" = "Creato e mantenuto da Leonardo Santos";
 "about.license" = "Visualizza licenza";
 "about.notices" = "Avvisi di terze parti";
@@ -92,3 +92,12 @@
 "defaultEditor.accept" = "Imposta come predefinita";
 "defaultEditor.later" = "Non ora";
 "defaultEditor.error" = "Impossibile cambiare l’app predefinita.";
+"Hide My Notepad" = "Nascondi My Notepad";
+"Hide Others" = "Nascondi altre";
+"Show All" = "Mostra tutte";
+"Increase Font Size" = "Ingrandisci carattere";
+"Decrease Font Size" = "Riduci carattere";
+"Window" = "Finestra";
+"Minimize" = "Contrai";
+"Zoom" = "Ridimensiona";
+"about.suite" = "Anche nella suite My:";

@@ -81,7 +81,7 @@
 "menu.accessKeys" = "aeovy";
 "help.body" = "Usa Archivo para abrir, guardar o imprimir texto. En Editar puedes buscar, reemplazar e ir a una línea. Formato permite cambiar la fuente y el ajuste de línea.\n\nF3 busca la siguiente coincidencia. F5 inserta la hora y la fecha. Para registrar cada apertura, escribe .LOG en la primera línea y guarda el archivo.";
 "about.version" = "Versión %@";
-"about.description" = "Editor de texto para macOS inspirado en el Bloc de notas clásico de Windows.";
+"about.description" = "Editor de texto sencillo para macOS, con los menús y los atajos de siempre.";
 "about.author" = "Creado y mantenido por Leonardo Santos";
 "about.license" = "Ver licencia";
 "about.notices" = "Avisos de terceros";
@@ -92,3 +92,12 @@
 "defaultEditor.accept" = "Usar por omisión";
 "defaultEditor.later" = "Ahora no";
 "defaultEditor.error" = "No se ha podido cambiar la aplicación predeterminada.";
+"Hide My Notepad" = "Ocultar My Notepad";
+"Hide Others" = "Ocultar otros";
+"Show All" = "Mostrar todo";
+"Increase Font Size" = "Aumentar el tamaño de la fuente";
+"Decrease Font Size" = "Reducir el tamaño de la fuente";
+"Window" = "Ventana";
+"Minimize" = "Minimizar";
+"Zoom" = "Zoom";
+"about.suite" = "También en la suite My:";
