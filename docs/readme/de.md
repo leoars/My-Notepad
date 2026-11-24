@@ -8,8 +8,8 @@ Ein einfacher Texteditor für macOS. Eine .txt-Datei öffnen, schreiben und mit 
 
 ## Download für macOS
 
-- **[Für Apple Silicon (M-Serie) herunterladen](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-arm64.pkg)**
-- **[Für Intel herunterladen](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-x86_64.pkg)**
+- **[Für Apple Silicon (M-Serie) herunterladen](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-arm64.pkg)**
+- **[Für Intel herunterladen](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-x86_64.pkg)**
 
 Erfordert macOS 12 oder neuer. [Zur neuesten Version](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -26,6 +26,7 @@ My Notepad ist entstanden, weil uns ein Texteditor fehlte, der ohne Umwege zur S
 ### Datei
 
 - **Neu**, **Öffnen…**, **Speichern** und **Speichern unter…**. Wenn Sie ein Dokument mit ungespeicherten Änderungen schließen oder ein anderes öffnen oder anlegen, fragt der Editor, ob die Änderungen gespeichert werden sollen.
+- **Benutzte Dokumente öffnen**, direkt unter **Öffnen…**, zeigt die zehn zuletzt geöffneten oder gespeicherten Dateien, die neueste zuerst, in jedem Fenster dieselbe Liste. Eine im Finder verschobene oder umbenannte Datei wird weiterhin gefunden, und **Einträge löschen** leert die Liste.
 - Öffnet Textdateien aus dem Finder, auch wenn die App nicht läuft, und bietet beim ersten Öffnen an, Standardeditor für .txt-Dateien zu werden.
 - **Neues Fenster** öffnet ein weiteres Dokument daneben. Eine Datei, die aus dem Finder oder aus My Explorer geöffnet wird, erhält ein eigenes Fenster, und das bereits geöffnete Dokument bleibt auf dem Bildschirm; ist die Datei schon geöffnet, kommt ihr Fenster nach vorn.
 - **Beenden** schließt das Fenster; die App wird mit dem letzten Fenster beendet.

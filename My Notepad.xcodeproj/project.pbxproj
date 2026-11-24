@@ -190,6 +190,24 @@
 			<key>fileRef</key>
 			<string>D816C2E659CECEA0CD389984</string>
 		</dict>
+		<key>5E2C8A1F94D3B7600AF41C28</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>Sources/Recents.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>7B91D04E2A6C58F3E1D2B947</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>5E2C8A1F94D3B7600AF41C28</string>
+		</dict>
 		<key>8AA679933C9B22FE26EC2CC8</key>
 		<dict>
 			<key>isa</key>
@@ -244,6 +262,7 @@
 				<string>0A8F19205ED501F9B8F2B706</string>
 				<string>6999AB4614ED15F9D100E4D0</string>
 				<string>BD57A554D00CED890C40DA5F</string>
+				<string>7B91D04E2A6C58F3E1D2B947</string>
 				<string>919B11F2C730A01547392FA4</string>
 				<string>84D5C75D613C5074341FA5B5</string>
 				<string>04EC8339098E9BE1008157BB</string>
@@ -324,6 +343,7 @@ cp LICENSE THIRD_PARTY_NOTICES.md Store/PrivacyInfo.xcprivacy "$res/"
 				<string>8AC9CA97D6E064F124D088E5</string>
 				<string>2DEE1467E9DD994716380750</string>
 				<string>D816C2E659CECEA0CD389984</string>
+				<string>5E2C8A1F94D3B7600AF41C28</string>
 				<string>8AA679933C9B22FE26EC2CC8</string>
 				<string>FC64C2814024C92C5A3A4785</string>
 				<string>9E6BF9A568D5325F4BF486D6</string>

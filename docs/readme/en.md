@@ -8,8 +8,8 @@ A simple text editor for macOS. Open a .txt file, write and save with the shortc
 
 ## Download for macOS
 
-- **[Download for Apple Silicon (M-series)](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-arm64.pkg)**
-- **[Download for Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-x86_64.pkg)**
+- **[Download for Apple Silicon (M-series)](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-arm64.pkg)**
+- **[Download for Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-x86_64.pkg)**
 
 Requires macOS 12 or later. [View the latest release](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -26,6 +26,7 @@ My Notepad was born from missing a text editor that gets straight to the point. 
 ### File
 
 - **New**, **Open…**, **Save** and **Save As…**. When you close, open or create a document with unsaved changes, the editor asks whether you want to save them.
+- **Open Recent**, right below **Open…**, lists the last ten files opened or saved, the latest first, the same list in every window. A file moved or renamed in the Finder is still found, and **Clear Menu** empties the list.
 - Opens text files from the Finder, even when the app is not running, and offers to become the default editor for .txt files the first time you open it.
 - **New Window** opens another document alongside. A file opened from the Finder or from My Explorer gets a window of its own, so the document already on screen stays put; a file that is already open brings its window to the front.
 - **Exit** closes the window; the app quits when the last window closes.

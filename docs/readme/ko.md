@@ -8,8 +8,8 @@ macOS용 간단한 텍스트 편집기입니다. .txt 파일을 열고, 쓰고, 
 
 ## macOS용 다운로드
 
-- **[Apple Silicon(M 시리즈)용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-arm64.pkg)**
-- **[Intel용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-x86_64.pkg)**
+- **[Apple Silicon(M 시리즈)용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-arm64.pkg)**
+- **[Intel용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-x86_64.pkg)**
 
 macOS 12 이상이 필요합니다. [최신 릴리스 보기](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -26,6 +26,7 @@ My Notepad는 군더더기 없는 텍스트 편집기가 아쉬워서 시작한 
 ### 파일
 
 - **새로 만들기**, **열기…**, **저장**, **다른 이름으로 저장…**. 변경 내용이 있는 문서를 닫거나 다른 문서를 열거나 새로 만들 때는 변경 내용을 저장할지 묻습니다.
+- **열기…** 바로 아래의 **최근 항목 열기**에는 마지막으로 열거나 저장한 파일 10개가 최근 순으로 표시되며, 모든 윈도우에서 같은 목록입니다. Finder에서 옮기거나 이름을 바꾼 파일도 찾아내며, **메뉴 지우기**로 목록을 비울 수 있습니다.
 - 앱이 실행 중이 아니어도 Finder에서 텍스트 파일을 열 수 있으며, 처음 실행할 때 .txt 파일의 기본 편집기로 사용할지 묻습니다.
 - **새 윈도우** 로 다른 문서를 나란히 열 수 있습니다. Finder나 My Explorer에서 연 파일은 자체 창에서 열리므로 이미 열려 있던 문서는 그대로 남습니다. 이미 열려 있는 파일이면 그 창이 앞으로 나옵니다.
 - **끝내기** 를 선택하면 창이 닫히고, 마지막 창을 닫으면 앱도 종료됩니다.

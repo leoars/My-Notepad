@@ -8,8 +8,8 @@ Um editor de texto simples para macOS. Abra um .txt, escreva e salve com os atal
 
 ## Baixar para macOS
 
-- **[Baixar para Apple Silicon (série M)](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-arm64.pkg)**
-- **[Baixar para Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-x86_64.pkg)**
+- **[Baixar para Apple Silicon (série M)](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-arm64.pkg)**
+- **[Baixar para Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-x86_64.pkg)**
 
 Requer macOS 12 ou posterior. [Ver a versão mais recente](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -26,6 +26,7 @@ O My Notepad nasceu da falta que faz um editor de texto direto ao ponto. Para an
 ### Arquivo
 
 - **Novo**, **Abrir…**, **Salvar** e **Salvar como…**. Ao fechar, abrir ou criar um documento com alterações, o editor pergunta se deseja salvá-las.
+- **Abrir recentes**, logo abaixo de **Abrir…**, lista os últimos dez arquivos abertos ou salvos, o mais recente primeiro, a mesma lista em todas as janelas. Um arquivo movido ou renomeado no Finder continua sendo encontrado, e **Limpar menu** esvazia a lista.
 - Abre arquivos de texto pelo Finder, mesmo com o aplicativo fechado, e oferece na primeira abertura ser o editor padrão de arquivos .txt.
 - **Nova janela** abre outro documento ao lado. Um arquivo aberto pelo Finder ou pelo My Explorer ganha uma janela própria, sem tirar da tela o documento que já estava aberto; se ele já estiver aberto, a janela dele vem para a frente.
 - **Sair** fecha a janela; o aplicativo encerra quando a última janela é fechada.

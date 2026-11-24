@@ -8,8 +8,8 @@ Un éditeur de texte simple pour macOS. Ouvrez un .txt, écrivez et enregistrez 
 
 ## Télécharger pour macOS
 
-- **[Télécharger pour Apple Silicon (série M)](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-arm64.pkg)**
-- **[Télécharger pour Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-x86_64.pkg)**
+- **[Télécharger pour Apple Silicon (série M)](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-arm64.pkg)**
+- **[Télécharger pour Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-x86_64.pkg)**
 
 Nécessite macOS 12 ou une version ultérieure. [Voir la dernière version](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -26,6 +26,7 @@ My Notepad est né du manque d’un éditeur de texte qui va droit au but. Pour 
 ### Fichier
 
 - **Nouveau**, **Ouvrir…**, **Enregistrer** et **Enregistrer sous…**. Lorsque vous fermez, ouvrez ou créez un document alors que des modifications sont en attente, l’éditeur vous demande si vous souhaitez les enregistrer.
+- **Ouvrir l’élément récent**, juste sous **Ouvrir…**, liste les dix derniers fichiers ouverts ou enregistrés, le plus récent en premier, la même liste dans toutes les fenêtres. Un fichier déplacé ou renommé dans le Finder est toujours retrouvé, et **Effacer le menu** vide la liste.
 - Ouvre les fichiers texte depuis le Finder, même lorsque l’application est fermée, et propose à la première ouverture de devenir l’éditeur par défaut des fichiers .txt.
 - **Nouvelle fenêtre** ouvre un autre document à côté. Un fichier ouvert depuis le Finder ou depuis My Explorer obtient sa propre fenêtre, sans retirer de l’écran le document déjà ouvert ; s’il est déjà ouvert, sa fenêtre passe au premier plan.
 - **Quitter** ferme la fenêtre ; l’application se ferme avec la dernière fenêtre.

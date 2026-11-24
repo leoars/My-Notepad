@@ -191,6 +191,8 @@ final class Notepad: NSObject, NSWindowDelegate, NSTextViewDelegate, NSMenuItemV
   /// This window's menu bar, installed while the window is key.
   var mainMenu = NSMenu()
   var windowMenuItem = NSMenuItem()
+  /// File > Open Recent of this window.
+  var recentMenu: NSMenu?
   var keyMonitor: Any?
   /// The draft this window writes while its document has changes not saved.
   var draftID = UUID()
@@ -563,6 +565,7 @@ final class Notepad: NSObject, NSWindowDelegate, NSTextViewDelegate, NSMenuItemV
     scopedURL = nil
     file = doc
     url = target
+    if let target { RecentFiles.shared.add(target) }
     editor.string = doc.text
     editor.setSelectedRange(NSRange(location: 0, length: 0))
     if doc.text.components(separatedBy: "\n").first == ".LOG" {
@@ -639,6 +642,7 @@ final class Notepad: NSObject, NSWindowDelegate, NSTextViewDelegate, NSMenuItemV
       try bytes.write(to: target, options: .atomic)
       file = next
       url = target
+      RecentFiles.shared.add(target)
       refresh()
       if !edited { DraftStore.remove(draftID) }
       return true

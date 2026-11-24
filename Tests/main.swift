@@ -129,6 +129,10 @@ let touched = ["wrap", "status", "fontName", "fontSize", SettingsPanel.key]
 for key in touched { settings.removeObject(forKey: key) }
 settings.set(true, forKey: "status")
 
+// The recent files go to settings of this run, and the Dock's list is left alone.
+let recentSuite = "MyNotepadRecentTests-\(getpid())"
+RecentFiles.shared = RecentFiles(defaults: UserDefaults(suiteName: recentSuite)!, notesSystem: false)
+
 let app = Notepad()
 
 func menu(_ title: String) -> NSMenu? { NSApp.mainMenu?.items.first { $0.title == title }?.submenu }
@@ -390,6 +394,100 @@ do {
     "and unavailable in a window that belongs to none")
 }
 
+// Recent files: File > Open Recent, one list for every window
+do {
+  let folder = FileManager.default.temporaryDirectory.appendingPathComponent("MyNotepadRecentFiles-\(getpid())")
+  let other = folder.appendingPathComponent("other", isDirectory: true)
+  try! FileManager.default.createDirectory(at: other, withIntermediateDirectories: true)
+  defer { try? FileManager.default.removeItem(at: folder) }
+  func write(_ name: String, _ text: String, in place: URL? = nil) -> URL {
+    let url = (place ?? folder).appendingPathComponent(name)
+    try! Data(text.utf8).write(to: url)
+    return url
+  }
+  let recents = RecentFiles.shared
+  recents.clear()
+  let holder = item("File", "Open Recent")
+  let fileTitles = menu("File")?.items.map(\.title) ?? []
+  check(holder?.submenu != nil && fileTitles.firstIndex(of: "Open Recent") == fileTitles.firstIndex(of: "Open…").map { $0 + 1 },
+    "File has Open Recent, right below Open…")
+  func shown(_ document: Notepad) -> [String] {
+    guard let list = document.recentMenu else { return [] }
+    document.menuNeedsUpdate(list)
+    return list.items.map(\.title)
+  }
+  check(shown(app) == ["Clear Menu"] && app.validateMenuItem(app.recentMenu!.items[0]) == false,
+    "with no recent files it holds only Clear Menu, unavailable")
+
+  let suite = NotepadApp()
+  suite.showsWindows = false
+  suite.applicationDidFinishLaunching(Notification(name: NSApplication.didFinishLaunchingNotification))
+  let a = write("a.txt", "alpha"), b = write("b.txt", "beta"), twin = write("a.txt", "twin", in: other)
+  suite.open(a)
+  suite.open(b)
+  func showing(_ url: URL) -> Notepad? { suite.documents.first { $0.url == url } }
+  let window = showing(a)!
+  check(recents.urls.map(\.lastPathComponent) == ["b.txt", "a.txt"], "files opened go to the top of the list, the latest first")
+  let second = showing(b)!
+  check(shown(second) == ["b.txt", "a.txt", "", "Clear Menu"] && shown(window) == shown(second),
+    "every window shows the same list, with Clear Menu below")
+  suite.open(a)
+  check(recents.urls.count == 2, "a file opened again is listed once")
+  check(second.validateMenuItem(second.recentMenu!.items.last!), "Clear Menu is available once there is something to clear")
+
+  // Open Recent in a window works as Open… there; a file open in another window brings it forward.
+  let blank = suite.newDocument()
+  let windows = suite.documents.count
+  _ = shown(blank)
+  blank.openRecent(blank.recentMenu!.items[0])
+  check(blank.isPristine && suite.documents.count == windows, "a recent file open in another window is not opened twice")
+  second.install(TextFile(), nil)
+  let c = write("c.txt", "gamma")
+  suite.open(c)
+  _ = shown(blank)
+  let indexOfA = recents.urls.firstIndex { $0.lastPathComponent == "a.txt" }!
+  blank.openRecent(blank.recentMenu!.items[indexOfA])
+  check(window.url == a, "a file already on screen stays where it is")
+  let indexOfB = recents.urls.firstIndex { $0.lastPathComponent == "b.txt" }!
+  blank.openRecent(blank.recentMenu!.items[indexOfB])
+  check(blank.editor.string == "beta" && blank.url.map(Notepad.identity) == Notepad.identity(of: b) && recents.urls.first?.lastPathComponent == "b.txt",
+    "a recent file not on screen opens in the window whose menu was used, and goes back to the top")
+
+  suite.open(twin)
+  check(recents.titles().filter { $0.hasPrefix("a.txt") }.sorted() == ["a.txt — MyNotepadRecentFiles-\(getpid())", "a.txt — other"],
+    "two files with the same name show their folders")
+
+  // A moved file is found through its bookmark; a deleted one leaves the list.
+  let moved = folder.appendingPathComponent("moved.txt")
+  try! FileManager.default.moveItem(at: c, to: moved)
+  let indexOfC = recents.urls.firstIndex { $0.lastPathComponent == "c.txt" }!
+  check(recents.resolve(at: indexOfC)?.url.lastPathComponent == "moved.txt" && recents.urls[indexOfC].lastPathComponent == "moved.txt",
+    "a file moved in the Finder is still found, under its new name")
+  let gone = write("gone.txt", "gone")
+  suite.open(gone)
+  try! FileManager.default.removeItem(at: gone)
+  check(recents.resolve(at: 0) == nil || !FileManager.default.fileExists(atPath: recents.urls[0].path), "a deleted file cannot be found")
+  recents.remove(gone)
+  check(!recents.urls.contains { $0.lastPathComponent == "gone.txt" }, "and leaves the list")
+
+  for index in 0..<12 { suite.open(write("n\(index).txt", "\(index)")) }
+  check(recents.urls.count == RecentFiles.limit && recents.urls.first?.lastPathComponent == "n11.txt"
+    && !recents.urls.contains { $0.lastPathComponent == "n1.txt" }, "the list keeps the last ten, dropping the oldest")
+  check(RecentFiles(defaults: recents.defaults, notesSystem: false).urls == recents.urls, "the list is kept for the next launch")
+
+  var saved = TextFile()
+  saved.text = "new"
+  let fresh = suite.newDocument()
+  fresh.install(saved, nil)
+  fresh.url = folder.appendingPathComponent("saved.txt")
+  check(fresh.save() && recents.urls.first?.lastPathComponent == "saved.txt", "a file saved under a new name joins the list")
+
+  blank.clearRecents(nil)
+  check(recents.urls.isEmpty && shown(blank) == ["Clear Menu"] && RecentFiles(defaults: recents.defaults, notesSystem: false).urls.isEmpty,
+    "Clear Menu empties the list, also for the next launch")
+  for document in suite.documents { document.windowWillClose(Notification(name: NSWindow.willCloseNotification)) }
+}
+
 // Drafts: what was not saved survives closing the window and quitting, and comes back
 do {
   let folder = FileManager.default.temporaryDirectory.appendingPathComponent("MyNotepadDraftFiles-\(getpid())")
@@ -643,6 +741,7 @@ do {
 
 for key in touched { settings.removeObject(forKey: key) }
 settings.synchronize()
+UserDefaults.standard.removePersistentDomain(forName: recentSuite)
 
 print(failures == 0 ? "All tests passed." : "\(failures) test(s) failed.")
 exit(failures == 0 ? 0 : 1)

@@ -8,8 +8,8 @@ Un editor di testo semplice per macOS. Apri un .txt, scrivi e salva con le scorc
 
 ## Scarica per macOS
 
-- **[Scarica per Apple Silicon (serie M)](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-arm64.pkg)**
-- **[Scarica per Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-x86_64.pkg)**
+- **[Scarica per Apple Silicon (serie M)](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-arm64.pkg)**
+- **[Scarica per Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-x86_64.pkg)**
 
 Richiede macOS 12 o successivo. [Vedi la versione più recente](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -26,6 +26,7 @@ My Notepad è nato dalla mancanza di un editor di testo che vada dritto al punto
 ### File
 
 - **Nuovo**, **Apri…**, **Salva** e **Salva con nome…**. Quando chiudi, apri o crei un documento con modifiche non salvate, l’editor chiede se vuoi salvarle.
+- **Apri recenti**, subito sotto **Apri…**, elenca gli ultimi dieci file aperti o salvati, il più recente per primo, lo stesso elenco in ogni finestra. Un file spostato o rinominato nel Finder viene comunque ritrovato, e **Cancella menu** svuota l’elenco.
 - Apre i file di testo dal Finder, anche con l’app chiusa, e alla prima apertura propone di diventare l’editor predefinito dei file .txt.
 - **Nuova finestra** apre un altro documento accanto. Un file aperto dal Finder o da My Explorer ha una finestra tutta sua, senza togliere dallo schermo il documento già aperto; se il file è già aperto, la sua finestra passa in primo piano.
 - **Esci** chiude la finestra; l’app si chiude con l’ultima finestra.

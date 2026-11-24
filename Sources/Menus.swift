@@ -77,6 +77,7 @@ extension Notepad {
     commandShortcuts["n"] = menus[0].items.first
     commandShortcuts["+n"] = newWindow
     add(0, "Open…", "o", openFile)
+    addRecentMenu(to: menus[0])
     add(0, "Save", "s") { self.save() }
     add(0, "Save As…") { self.save(asNew: true) }
     shortcuts["^+s"] = menus[0].items.last
@@ -190,6 +191,7 @@ extension Notepad {
     case "Redo": return editor.undoManager?.canRedo ?? false
     case "Cut", "Copy", "Delete": return editor.selectedRange().length > 0
     case "Find…", "Find Next": return !editor.string.isEmpty
+    case "Clear Menu": return !RecentFiles.shared.entries.isEmpty
     default: break
     }
     return true

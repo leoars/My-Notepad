@@ -8,8 +8,8 @@ macOS 用のシンプルなテキストエディタです。.txt ファイルを
 
 ## macOS 版のダウンロード
 
-- **[Apple シリコン（M シリーズ）用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-arm64.pkg)**
-- **[Intel 用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-x86_64.pkg)**
+- **[Apple シリコン（M シリーズ）用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-arm64.pkg)**
+- **[Intel 用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-x86_64.pkg)**
 
 macOS 12 以降に対応しています。 [最新版を見る](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -26,6 +26,7 @@ My Notepad は、余計なもののないテキストエディタが欲しいと
 ### ファイル
 
 - **新規作成**、**開く…**、**保存**、**名前を付けて保存…**。変更のある文書を閉じるときや、別の文書を開いたり新しく作成したりするときは、変更を保存するかどうかを確認します。
+- **開く…**のすぐ下の**最近使った項目を開く**には、最後に開いたり保存したりした 10 個のファイルが新しい順に並びます。リストはすべてのウインドウで共通です。Finder で移動したり名前を変更したりしたファイルも見つかり、**メニューを消去**でリストを空にできます。
 - アプリを起動していなくても、Finder からテキストファイルを開けます。初回起動時には、.txt ファイルの既定のエディタにするかどうかを選べます。
 - **新規ウインドウ** で別の文書を並べて開けます。Finder や My Explorer から開いたファイルは専用のウインドウで開くので、すでに開いている文書はそのまま残ります。すでに開いているファイルなら、そのウインドウが前面に出ます。
 - **終了** を選ぶとウインドウが閉じます。最後のウインドウを閉じるとアプリも終了します。
