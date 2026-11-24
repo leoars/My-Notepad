@@ -8,8 +8,8 @@ Un éditeur de texte simple pour macOS. Ouvrez un .txt, écrivez et enregistrez 
 
 ## Télécharger pour macOS
 
-- **[Télécharger pour Apple Silicon (série M)](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-arm64.pkg)**
-- **[Télécharger pour Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-x86_64.pkg)**
+- **[Télécharger pour Apple Silicon (série M)](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-arm64.pkg)**
+- **[Télécharger pour Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-x86_64.pkg)**
 
 Nécessite macOS 12 ou une version ultérieure. [Voir la dernière version](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -30,6 +30,7 @@ My Notepad est né du manque d’un éditeur de texte qui va droit au but. Pour 
 - **Nouvelle fenêtre** ouvre un autre document à côté. Un fichier ouvert depuis le Finder ou depuis My Explorer obtient sa propre fenêtre, sans retirer de l’écran le document déjà ouvert ; s’il est déjà ouvert, sa fenêtre passe au premier plan.
 - **Quitter** ferme la fenêtre ; l’application se ferme avec la dernière fenêtre.
 - **Réglages…** (`Cmd+,`) propose **Reprendre la session précédente** : fermer la fenêtre, quitter l’application ou redémarrer le Mac ne demande plus d’enregistrer, et ce qui n’a pas été enregistré est conservé sur ce Mac et revient à la prochaine ouverture, chaque document dans sa fenêtre. L’option est activée par défaut ; pour que la question revienne, choisissez **Commencer une nouvelle session**.
+- **Rechercher les mises à jour…** dans le menu My Notepad, et une vérification à l’ouverture, au plus une fois par jour, que vous pouvez désactiver dans **Réglages…**. La nouvelle version n’est téléchargée qu’avec votre accord, elle est vérifiée (signature du développeur et notarisation d’Apple) et s’ouvre dans le programme d’installation de macOS ; My Notepad se rouvre à la fin de l’installation.
 
 ### Édition
 

@@ -246,6 +246,7 @@
 				<string>BD57A554D00CED890C40DA5F</string>
 				<string>919B11F2C730A01547392FA4</string>
 				<string>84D5C75D613C5074341FA5B5</string>
+				<string>04EC8339098E9BE1008157BB</string>
 				<string>BB75523A7BD47568F86EC112</string>
 			</array>
 			<key>runOnlyForDeploymentPostprocessing</key>
@@ -325,6 +326,7 @@ cp LICENSE THIRD_PARTY_NOTICES.md Store/PrivacyInfo.xcprivacy "$res/"
 				<string>D816C2E659CECEA0CD389984</string>
 				<string>8AA679933C9B22FE26EC2CC8</string>
 				<string>FC64C2814024C92C5A3A4785</string>
+				<string>9E6BF9A568D5325F4BF486D6</string>
 				<string>FCC11853A9D2A44617B5433D</string>
 				<string>0A3E27B8CA818264D75C8D81</string>
 			</array>
@@ -363,6 +365,8 @@ cp LICENSE THIRD_PARTY_NOTICES.md Store/PrivacyInfo.xcprivacy "$res/"
 				<string>public.app-category.productivity</string>
 				<key>SKIP_INSTALL</key>
 				<string>NO</string>
+				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
+				<string>APP_STORE</string>
 			</dict>
 		</dict>
 		<key>DD75E2CB1C510A828AC72D96</key>
@@ -397,6 +401,8 @@ cp LICENSE THIRD_PARTY_NOTICES.md Store/PrivacyInfo.xcprivacy "$res/"
 				<string>public.app-category.productivity</string>
 				<key>SKIP_INSTALL</key>
 				<string>NO</string>
+				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
+				<string>APP_STORE</string>
 			</dict>
 		</dict>
 		<key>1B672BF3DA427763BF644BE3</key>
@@ -543,6 +549,24 @@ cp LICENSE THIRD_PARTY_NOTICES.md Store/PrivacyInfo.xcprivacy "$res/"
 			<string>PBXBuildFile</string>
 			<key>fileRef</key>
 			<string>FC64C2814024C92C5A3A4785</string>
+		</dict>
+		<key>9E6BF9A568D5325F4BF486D6</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>Sources/Updates.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>04EC8339098E9BE1008157BB</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>9E6BF9A568D5325F4BF486D6</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>

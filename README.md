@@ -8,8 +8,8 @@ Um editor de texto simples para macOS. Abra um .txt, escreva e salve com os atal
 
 ## Baixar para macOS
 
-- **[Baixar para Apple Silicon (série M)](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-arm64.pkg)**
-- **[Baixar para Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-x86_64.pkg)**
+- **[Baixar para Apple Silicon (série M)](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-arm64.pkg)**
+- **[Baixar para Intel](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-x86_64.pkg)**
 
 Requer macOS 12 ou posterior. [Ver a versão mais recente](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -30,6 +30,7 @@ O My Notepad nasceu da falta que faz um editor de texto direto ao ponto. Para an
 - **Nova janela** abre outro documento ao lado. Um arquivo aberto pelo Finder ou pelo My Explorer ganha uma janela própria, sem tirar da tela o documento que já estava aberto; se ele já estiver aberto, a janela dele vem para a frente.
 - **Sair** fecha a janela; o aplicativo encerra quando a última janela é fechada.
 - **Ajustes…** (`Cmd+,`) oferece **Continuar a sessão anterior**: fechar a janela, encerrar o aplicativo ou reiniciar o Mac deixa de perguntar se deseja salvar, e o que não foi salvo fica guardado neste Mac e volta na próxima abertura, cada documento na sua janela. A opção vem ligada; para voltar a ser perguntado, escolha **Começar uma nova sessão**.
+- **Verificar atualizações…** no menu My Notepad, e uma verificação ao abrir, no máximo uma vez por dia, que pode ser desligada em **Ajustes…**. A versão nova só é baixada com a sua confirmação, é conferida (assinatura do desenvolvedor e notarização da Apple) e abre no Instalador do macOS; o My Notepad reabre quando o Instalador termina.
 
 ### Edição
 

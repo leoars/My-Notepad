@@ -396,6 +396,78 @@ do {
   try! FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
   defer { try? FileManager.default.removeItem(at: folder) }
   try? FileManager.default.removeItem(at: draftFolder)
+
+// Updates: which installer is newer, what the person chose, and whose signature is trusted
+do {
+  check(UpdateVersion.isNewer("1.0.10", than: "1.0.9") && UpdateVersion.isNewer("1.1", than: "1.0.4")
+    && !UpdateVersion.isNewer("1.0", than: "1.0.0") && !UpdateVersion.isNewer("1.0.3", than: "1.0.4"),
+    "versions compare number by number, and 1.0 is 1.0.0")
+  check(UpdateVersion.parts("1.0.4") == [1, 0, 4] && UpdateVersion.parts("1.0.4-beta") == nil && UpdateVersion.parts("") == nil
+    && UpdateVersion.parts("1..2") == nil && UpdateVersion.parts("1.2.3.4.5") == nil, "only digits separated by dots are versions")
+  func release(_ names: [String], draft: Bool = false, prerelease: Bool = false, state: String = "uploaded") -> [String: Any] {
+    ["draft": draft, "prerelease": prerelease,
+     "assets": names.enumerated().map { ["id": $0.offset + 1, "size": 2_000_000, "state": state, "name": $0.element] }]
+  }
+  let json = try! JSONSerialization.data(withJSONObject: [
+    release(["My-Notepad-1.0.9-arm64.pkg"], draft: true),
+    release(["My-Notepad-1.0.8-arm64.pkg"], prerelease: true),
+    release(["My-Notepad-1.0.7-arm64.pkg"], state: "starter"),
+    release(["My-Notepad-1.0.6-x86_64.pkg", "My-Paint-1.0.6-arm64.pkg", "My-Notepad-1.0.6-arm64.zip"]),
+    release(["My-Notepad-1.0.5-arm64.pkg", "My-Notepad-1.0.5-x86_64.pkg"]),
+    release(["My-Notepad-1.0.4-arm64.pkg"]),
+    release(["My-Notepad-v2-arm64.pkg", "My-Notepad--arm64.pkg"]),
+  ])
+  let releases = try! JSONDecoder().decode([UpdateRelease].self, from: json)
+  let found = UpdateVersion.newest(in: releases, prefix: "My-Notepad", architecture: "arm64", after: "1.0.4")
+  check(found?.version == "1.0.5" && found?.name == "My-Notepad-1.0.5-arm64.pkg" && found?.size == 2_000_000,
+    "the newest installer of this app and architecture is chosen; drafts, pre-releases and partial uploads are not")
+  check(UpdateVersion.newest(in: releases, prefix: "My-Notepad", architecture: "x86_64", after: "1.0.4")?.version == "1.0.6",
+    "an Intel Mac looks for the Intel installer")
+  check(UpdateVersion.newest(in: releases, prefix: "My-Notepad", architecture: "arm64", after: "1.0.5") == nil,
+    "with the newest version installed there is nothing to offer")
+
+  let suite = "MyNotepadUpdateTests-\(getpid())"
+  let store = UserDefaults(suiteName: suite)!
+  defer { store.removePersistentDomain(forName: suite) }
+  let preferences = UpdatePreferences(defaults: store)
+  let now = Date()
+  check(preferences.automatic && preferences.isDue(at: now), "checking at launch is on and due at first")
+  preferences.checked(at: now)
+  check(!preferences.isDue(at: now.addingTimeInterval(3600)) && preferences.isDue(at: now.addingTimeInterval(21 * 3600)),
+    "it runs at most once a day")
+  preferences.remindLater(from: now.addingTimeInterval(21 * 3600))
+  check(!preferences.isDue(at: now.addingTimeInterval(5 * 24 * 3600)) && preferences.isDue(at: now.addingTimeInterval(9 * 24 * 3600)),
+    "Remind Me Later waits a week")
+  preferences.skip("1.0.6")
+  preferences.skip("1.0.5")
+  check(preferences.skippedVersion == "1.0.6", "Skip This Version keeps the highest version skipped")
+  preferences.automatic = false
+  check(!UpdatePreferences(defaults: store).automatic, "turning it off in Settings is kept")
+
+  let signed = """
+    Package "My-Notepad-1.0.4-arm64.pkg":
+       Status: signed by a developer certificate issued by Apple for distribution
+       Notarization: trusted by the Apple notary service
+       Certificate Chain:
+        1. Developer ID Installer: Leonardo Santos (GV4SHC87M4)
+        2. Developer ID Certification Authority
+    """
+  check(UpdatePackage.trusts(signature: signed), "an installer signed by the developer's team is trusted")
+  check(!UpdatePackage.trusts(signature: signed.replacingOccurrences(of: "GV4SHC87M4", with: "AAAAAAAAAA")),
+    "one signed by another team is not")
+  check(!UpdatePackage.trusts(signature: signed.replacingOccurrences(of: "for distribution", with: "for development")),
+    "nor one signed for development")
+  check(!UpdatePackage.trusts(signature: signed.replacingOccurrences(of: "Developer ID Installer", with: "Developer ID Application")),
+    "nor one signed with an application certificate")
+  let panel = SettingsPanel()
+  check(panel.updatesButton.title == "Check for updates at startup" && panel.checkNowButton.title == "Check now"
+    && panel.updatesButton.superview === panel.checkNowButton.superview
+    && panel.updateStatus.stringValue == "Checks GitHub at startup and asks before downloading.",
+    "Settings shows the option and Check now side by side, and the status below, with My Explorer's words")
+  check(!panel.checkNowButton.isEnabled, "Check now waits for the app's updater")
+  check(PackageUpdater.isAvailable && item("My Notepad", "Check for Updates…")?.title == "Check for Updates…",
+    "Check for Updates is in the application menu of the copy installed from GitHub")
+}
   func drafts() -> [Draft] { DraftStore.leftovers { _ in false } }
   let saved = folder.appendingPathComponent("saved.txt")
   try! Data("on disk".utf8).write(to: saved)
@@ -496,6 +568,78 @@ do {
   fresh.documents[0].windowWillClose(Notification(name: NSWindow.willCloseNotification))
 }
 try? FileManager.default.removeItem(at: draftFolder)
+
+// Updates: which installer is newer, what the person chose, and whose signature is trusted
+do {
+  check(UpdateVersion.isNewer("1.0.10", than: "1.0.9") && UpdateVersion.isNewer("1.1", than: "1.0.4")
+    && !UpdateVersion.isNewer("1.0", than: "1.0.0") && !UpdateVersion.isNewer("1.0.3", than: "1.0.4"),
+    "versions compare number by number, and 1.0 is 1.0.0")
+  check(UpdateVersion.parts("1.0.4") == [1, 0, 4] && UpdateVersion.parts("1.0.4-beta") == nil && UpdateVersion.parts("") == nil
+    && UpdateVersion.parts("1..2") == nil && UpdateVersion.parts("1.2.3.4.5") == nil, "only digits separated by dots are versions")
+  func release(_ names: [String], draft: Bool = false, prerelease: Bool = false, state: String = "uploaded") -> [String: Any] {
+    ["draft": draft, "prerelease": prerelease,
+     "assets": names.enumerated().map { ["id": $0.offset + 1, "size": 2_000_000, "state": state, "name": $0.element] }]
+  }
+  let json = try! JSONSerialization.data(withJSONObject: [
+    release(["My-Notepad-1.0.9-arm64.pkg"], draft: true),
+    release(["My-Notepad-1.0.8-arm64.pkg"], prerelease: true),
+    release(["My-Notepad-1.0.7-arm64.pkg"], state: "starter"),
+    release(["My-Notepad-1.0.6-x86_64.pkg", "My-Paint-1.0.6-arm64.pkg", "My-Notepad-1.0.6-arm64.zip"]),
+    release(["My-Notepad-1.0.5-arm64.pkg", "My-Notepad-1.0.5-x86_64.pkg"]),
+    release(["My-Notepad-1.0.4-arm64.pkg"]),
+    release(["My-Notepad-v2-arm64.pkg", "My-Notepad--arm64.pkg"]),
+  ])
+  let releases = try! JSONDecoder().decode([UpdateRelease].self, from: json)
+  let found = UpdateVersion.newest(in: releases, prefix: "My-Notepad", architecture: "arm64", after: "1.0.4")
+  check(found?.version == "1.0.5" && found?.name == "My-Notepad-1.0.5-arm64.pkg" && found?.size == 2_000_000,
+    "the newest installer of this app and architecture is chosen; drafts, pre-releases and partial uploads are not")
+  check(UpdateVersion.newest(in: releases, prefix: "My-Notepad", architecture: "x86_64", after: "1.0.4")?.version == "1.0.6",
+    "an Intel Mac looks for the Intel installer")
+  check(UpdateVersion.newest(in: releases, prefix: "My-Notepad", architecture: "arm64", after: "1.0.5") == nil,
+    "with the newest version installed there is nothing to offer")
+
+  let suite = "MyNotepadUpdateTests-\(getpid())"
+  let store = UserDefaults(suiteName: suite)!
+  defer { store.removePersistentDomain(forName: suite) }
+  let preferences = UpdatePreferences(defaults: store)
+  let now = Date()
+  check(preferences.automatic && preferences.isDue(at: now), "checking at launch is on and due at first")
+  preferences.checked(at: now)
+  check(!preferences.isDue(at: now.addingTimeInterval(3600)) && preferences.isDue(at: now.addingTimeInterval(21 * 3600)),
+    "it runs at most once a day")
+  preferences.remindLater(from: now.addingTimeInterval(21 * 3600))
+  check(!preferences.isDue(at: now.addingTimeInterval(5 * 24 * 3600)) && preferences.isDue(at: now.addingTimeInterval(9 * 24 * 3600)),
+    "Remind Me Later waits a week")
+  preferences.skip("1.0.6")
+  preferences.skip("1.0.5")
+  check(preferences.skippedVersion == "1.0.6", "Skip This Version keeps the highest version skipped")
+  preferences.automatic = false
+  check(!UpdatePreferences(defaults: store).automatic, "turning it off in Settings is kept")
+
+  let signed = """
+    Package "My-Notepad-1.0.4-arm64.pkg":
+       Status: signed by a developer certificate issued by Apple for distribution
+       Notarization: trusted by the Apple notary service
+       Certificate Chain:
+        1. Developer ID Installer: Leonardo Santos (GV4SHC87M4)
+        2. Developer ID Certification Authority
+    """
+  check(UpdatePackage.trusts(signature: signed), "an installer signed by the developer's team is trusted")
+  check(!UpdatePackage.trusts(signature: signed.replacingOccurrences(of: "GV4SHC87M4", with: "AAAAAAAAAA")),
+    "one signed by another team is not")
+  check(!UpdatePackage.trusts(signature: signed.replacingOccurrences(of: "for distribution", with: "for development")),
+    "nor one signed for development")
+  check(!UpdatePackage.trusts(signature: signed.replacingOccurrences(of: "Developer ID Installer", with: "Developer ID Application")),
+    "nor one signed with an application certificate")
+  let panel = SettingsPanel()
+  check(panel.updatesButton.title == "Check for updates at startup" && panel.checkNowButton.title == "Check now"
+    && panel.updatesButton.superview === panel.checkNowButton.superview
+    && panel.updateStatus.stringValue == "Checks GitHub at startup and asks before downloading.",
+    "Settings shows the option and Check now side by side, and the status below, with My Explorer's words")
+  check(!panel.checkNowButton.isEnabled, "Check now waits for the app's updater")
+  check(PackageUpdater.isAvailable && item("My Notepad", "Check for Updates…")?.title == "Check for Updates…",
+    "Check for Updates is in the application menu of the copy installed from GitHub")
+}
 
 for key in touched { settings.removeObject(forKey: key) }
 settings.synchronize()

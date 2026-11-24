@@ -11,6 +11,11 @@ extension Notepad {
     let settings = app.addItem(withTitle: L("Settings…"), action: #selector(showSettings), keyEquivalent: ",")
     settings.target = self
     settings.identifier = NSUserInterfaceItemIdentifier("Settings…")
+    if PackageUpdater.isAvailable {
+      let updates = app.addItem(withTitle: L("updates.check"), action: #selector(checkForUpdates), keyEquivalent: "")
+      updates.target = self
+      updates.identifier = NSUserInterfaceItemIdentifier("Check for Updates…")
+    }
     app.addItem(.separator())
     app.addItem(withTitle: L("Hide My Notepad"), action: #selector(NSApplication.hide(_:)), keyEquivalent: "h")
     let others = app.addItem(
@@ -164,6 +169,7 @@ extension Notepad {
   }
   @objc func invoke(_ item: NSMenuItem) { handlers[item.tag]?() }
   @objc func showSettings() { owner?.showSettings(over: window) }
+  @objc func checkForUpdates() { owner?.updater.checkNow() }
   @objc func showAppMenu(_ sender: NSButton) {
     NSApp.mainMenu?.items.first?.submenu?.popUp(
       positioning: nil, at: NSPoint(x: 0, y: sender.isFlipped ? sender.bounds.maxY : 0), in: sender)
@@ -179,7 +185,7 @@ extension Notepad {
       return !wrapping
     case "Word Wrap": item.state = wrapping ? .on : .off
     case "Go To…": return !wrapping
-    case "New Window", "Settings…": return owner != nil
+    case "New Window", "Settings…", "Check for Updates…": return owner != nil
     case "Undo": return editor.undoManager?.canUndo ?? false
     case "Redo": return editor.undoManager?.canRedo ?? false
     case "Cut", "Copy", "Delete": return editor.selectedRange().length > 0

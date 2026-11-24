@@ -11,6 +11,17 @@ final class SettingsPanel: NSObject, NSWindowDelegate {
     contentRect: .zero, styleMask: [.titled, .closable], backing: .buffered, defer: true)
   let continueButton = NSButton(radioButtonWithTitle: L("settings.continue"), target: nil, action: nil)
   let newButton = NSButton(radioButtonWithTitle: L("settings.new"), target: nil, action: nil)
+  let updatesButton = NSButton(checkboxWithTitle: L("updates.automatic"), target: nil, action: nil)
+  var updates = UpdatePreferences(defaults: .standard)
+  let checkNowButton = NSButton(title: L("updates.check_now"), target: nil, action: nil)
+  let updateStatus = NSTextField(wrappingLabelWithString: L("updates.status.idle"))
+  /// The app's updater, for Check now and the status line; none in the tests.
+  weak var updater: PackageUpdater? {
+    didSet {
+      updater?.changed = { [weak self] in self?.update() }
+      update()
+    }
+  }
   /// Called after the choice changes, so the open windows write or drop their drafts.
   var changed: ((Bool) -> Void)?
 
@@ -35,12 +46,35 @@ final class SettingsPanel: NSObject, NSWindowDelegate {
     heading.font = .boldSystemFont(ofSize: NSFont.systemFontSize)
     let continueDetail = detail(L("settings.continue.detail"))
     let newDetail = detail(L("settings.new.detail"))
-    let stack = NSStackView(views: [heading, continueButton, continueDetail, newButton, newDetail])
+    var views: [NSView] = [heading, continueButton, continueDetail, newButton, newDetail]
+    // Only the copies installed from GitHub update themselves; the store updates its own.
+    if PackageUpdater.isAvailable {
+      let updatesHeading = NSTextField(labelWithString: L("updates.heading"))
+      updatesHeading.font = heading.font
+      updatesButton.target = self
+      updatesButton.action = #selector(toggleUpdates(_:))
+      checkNowButton.target = self
+      checkNowButton.action = #selector(checkNow(_:))
+      checkNowButton.bezelStyle = .rounded
+      // The option and Check now side by side, the status below, as in My Explorer's Options.
+      let row = NSStackView(views: [updatesButton, checkNowButton])
+      row.spacing = 12
+      updateStatus.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
+      updateStatus.textColor = .secondaryLabelColor
+      updateStatus.preferredMaxLayoutWidth = 350
+      updateStatus.widthAnchor.constraint(equalToConstant: 350).isActive = true
+      // Room for two lines: the longest states take them in some languages.
+      updateStatus.heightAnchor.constraint(greaterThanOrEqualToConstant: 2 * ceil(updateStatus.font!.boundingRectForFont.height)).isActive = true
+      views += [updatesHeading, row, updateStatus]
+    }
+    let stack = NSStackView(views: views)
     stack.orientation = .vertical
     stack.alignment = .leading
     stack.spacing = 4
     stack.setCustomSpacing(10, after: heading)
     stack.setCustomSpacing(12, after: continueDetail)
+    stack.setCustomSpacing(18, after: newDetail)
+    if views.count > 5 { stack.setCustomSpacing(8, after: views[5]) }
     // The details line up with the titles of the radio buttons.
     for label in [continueDetail, newDetail] {
       label.leadingAnchor.constraint(equalTo: stack.leadingAnchor, constant: 20).isActive = true
@@ -54,6 +88,15 @@ final class SettingsPanel: NSObject, NSWindowDelegate {
   func update() {
     continueButton.state = SettingsPanel.continuesSession ? .on : .off
     newButton.state = SettingsPanel.continuesSession ? .off : .on
+    updatesButton.state = updates.automatic ? .on : .off
+    updateStatus.stringValue = L(updater?.status ?? "updates.status.idle")
+    checkNowButton.isEnabled = updater?.canCheckNow ?? false
+  }
+
+  @objc func checkNow(_ sender: NSButton) { updater?.checkNow() }
+
+  @objc func toggleUpdates(_ sender: NSButton) {
+    updates.automatic = sender.state == .on
   }
 
   @objc func choose(_ sender: NSButton) {

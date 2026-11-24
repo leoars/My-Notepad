@@ -27,6 +27,12 @@ final class NotepadApp: NSObject, NSApplicationDelegate {
     pending = []
     for target in waiting { open(target) }
     DispatchQueue.main.async { first.offerDefaultTextEditor() }
+    if showsWindows { updater.startAutomatically() }
+  }
+
+  /// Updates from the GitHub releases; absent from the App Store build.
+  lazy var updater = PackageUpdater(appName: "My Notepad", repository: "leoars/My-Notepad", prefix: "My-Notepad") {
+    [weak self] in self?.frontDocument?.window
   }
 
   /// A new, empty window, placed a step below and to the right of the frontmost one.
@@ -99,6 +105,7 @@ final class NotepadApp: NSObject, NSApplicationDelegate {
   /// changes at once; turning it off removes them, so nothing comes back that was not asked for.
   lazy var settings: SettingsPanel = {
     let panel = SettingsPanel()
+    panel.updater = updater
     panel.changed = { [weak self] on in
       for document in self?.documents ?? [] {
         if on { document.keepDraft() } else { DraftStore.remove(document.draftID) }

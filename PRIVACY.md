@@ -2,7 +2,7 @@
 
 O My Notepad é um editor de texto para macOS desenvolvido por Leonardo Santos. O aplicativo abre e salva os documentos nos locais que você escolhe. As preferências de edição ficam no seu Mac. Com a opção **Continuar a sessão anterior** de Ajustes, que vem ligada, o texto ainda não salvo fica guardado na pasta de suporte do aplicativo, neste Mac, até ser salvo, descartado ou a opção ser desligada.
 
-O aplicativo não coleta nem transmite o conteúdo dos documentos, dados pessoais, identificadores ou dados de uso ao desenvolvedor. Não inclui anúncios, rastreamento ou ferramentas de análise. Se você abrir um link externo ou enviar um relato pelo GitHub, o serviço escolhido receberá as informações que você decidir fornecer.
+O aplicativo não coleta nem transmite o conteúdo dos documentos, dados pessoais, identificadores ou dados de uso ao desenvolvedor. Não inclui anúncios, rastreamento ou ferramentas de análise. A cópia instalada pelo GitHub verifica novas versões consultando a lista pública de releases do GitHub, ao abrir (no máximo uma vez por dia, o que pode ser desligado em Ajustes) ou quando você pede; o GitHub recebe o endereço de rede do Mac, como em qualquer acesso a um site, e nenhum conteúdo ou dado pessoal é enviado. A cópia da App Store não faz essa verificação. Se você abrir um link externo ou enviar um relato pelo GitHub, o serviço escolhido receberá as informações que você decidir fornecer.
 
 Para falar sobre privacidade, escreva para [Leonardo Santos](mailto:leoars@gmail.com).
 
@@ -10,6 +10,6 @@ Para falar sobre privacidade, escreva para [Leonardo Santos](mailto:leoars@gmail
 
 My Notepad is a macOS text editor developed by Leonardo Santos. The app opens and saves documents in the locations you choose and stores editing preferences on your Mac. With **Continue the previous session** in Settings, which is on by default, text not yet saved is kept in the app’s support folder on this Mac until it is saved, discarded or the option is turned off.
 
-The app does not collect or transmit document contents, personal information, identifiers or usage data to the developer. It contains no advertising, tracking or analytics. If you open an external link or submit a report on GitHub, the service you choose receives the information you decide to share.
+The app does not collect or transmit document contents, personal information, identifiers or usage data to the developer. It contains no advertising, tracking or analytics. The copy installed from GitHub checks for new versions by reading GitHub’s public list of releases, when it opens (at most once a day, which you can turn off in Settings) or when you ask; GitHub receives the Mac’s network address, as with any visit to a website, and no content or personal data is sent. The App Store copy does not make this check. If you open an external link or submit a report on GitHub, the service you choose receives the information you decide to share.
 
 For privacy questions, contact [Leonardo Santos](mailto:leoars@gmail.com).

@@ -8,8 +8,8 @@ macOS 用のシンプルなテキストエディタです。.txt ファイルを
 
 ## macOS 版のダウンロード
 
-- **[Apple シリコン（M シリーズ）用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-arm64.pkg)**
-- **[Intel 用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-x86_64.pkg)**
+- **[Apple シリコン（M シリーズ）用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-arm64.pkg)**
+- **[Intel 用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-x86_64.pkg)**
 
 macOS 12 以降に対応しています。 [最新版を見る](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -30,6 +30,7 @@ My Notepad は、余計なもののないテキストエディタが欲しいと
 - **新規ウインドウ** で別の文書を並べて開けます。Finder や My Explorer から開いたファイルは専用のウインドウで開くので、すでに開いている文書はそのまま残ります。すでに開いているファイルなら、そのウインドウが前面に出ます。
 - **終了** を選ぶとウインドウが閉じます。最後のウインドウを閉じるとアプリも終了します。
 - **設定…**（`Cmd+,`）で **前回のセッションを続ける** を選ぶと、ウインドウを閉じたり、アプリを終了したり、Mac を再起動したりしても保存の確認が出ません。保存していない内容はこの Mac に残り、次にアプリを開いたときにそれぞれのウインドウに戻ります。この設定は最初からオンです。確認を出すには **新しいセッションを開始する** を選びます。
+- My Notepad メニューの **アップデートを確認…** と、起動時の確認（1 日に 1 回まで）。起動時の確認は **設定…** でオフにできます。新しいバージョンは同意したときだけダウンロードされ、開発者の署名と Apple の公証を確認してから macOS のインストーラで開きます。インストーラを閉じると My Notepad がもう一度開きます。
 
 ### 編集
 

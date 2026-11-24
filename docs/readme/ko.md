@@ -8,8 +8,8 @@ macOS용 간단한 텍스트 편집기입니다. .txt 파일을 열고, 쓰고, 
 
 ## macOS용 다운로드
 
-- **[Apple Silicon(M 시리즈)용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-arm64.pkg)**
-- **[Intel용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.4/My-Notepad-1.0.4-x86_64.pkg)**
+- **[Apple Silicon(M 시리즈)용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-arm64.pkg)**
+- **[Intel용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.5/My-Notepad-1.0.5-x86_64.pkg)**
 
 macOS 12 이상이 필요합니다. [최신 릴리스 보기](https://github.com/leoars/My-Notepad/releases/latest)
 
@@ -30,6 +30,7 @@ My Notepad는 군더더기 없는 텍스트 편집기가 아쉬워서 시작한 
 - **새 윈도우** 로 다른 문서를 나란히 열 수 있습니다. Finder나 My Explorer에서 연 파일은 자체 창에서 열리므로 이미 열려 있던 문서는 그대로 남습니다. 이미 열려 있는 파일이면 그 창이 앞으로 나옵니다.
 - **끝내기** 를 선택하면 창이 닫히고, 마지막 창을 닫으면 앱도 종료됩니다.
 - **설정…**(`Cmd+,`)에서 **이전 세션 계속하기** 를 선택하면 창을 닫거나 앱을 종료하거나 Mac을 재시동해도 저장할지 묻지 않습니다. 저장하지 않은 내용은 이 Mac에 보관되어 다음에 앱을 열 때 각 문서의 창으로 돌아옵니다. 이 옵션은 처음부터 켜져 있습니다. 다시 묻게 하려면 **새 세션 시작하기** 를 선택하세요.
+- My Notepad 메뉴의 **업데이트 확인…** 과 앱을 열 때의 확인(하루 최대 한 번). 앱을 열 때의 확인은 **설정…** 에서 끌 수 있습니다. 새 버전은 동의할 때만 다운로드되고, 개발자 서명과 Apple 공증을 확인한 뒤 macOS 설치 프로그램에서 열립니다. 설치 프로그램을 닫으면 My Notepad 앱이 다시 열립니다.
 
 ### 편집
 
