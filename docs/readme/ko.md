@@ -2,18 +2,18 @@
 
 [Português (Brasil)](../../README.md) · [English](en.md) · [Español](es.md) · [Français](fr.md) · [Deutsch](de.md) · [Italiano](it.md) · [日本語](ja.md) · **한국어**
 
-**My 스위트:** [My Explorer](https://github.com/leoars/my-explorer/blob/main/README.ko.md) · **My Notepad** · [My Paint](https://github.com/leoars/my-paint/blob/main/docs/readme/ko.md)
+**My 스위트:** [My Explorer](https://github.com/leoars/my-explorer/blob/main/README.ko.md) · **My Notepad** · [My Paint](https://github.com/leoars/my-paint/blob/main/docs/readme/ko.md) · [My Calc](https://github.com/leoars/my-calc/blob/main/docs/readme/ko.md)
 
 macOS용 간단한 텍스트 편집기입니다. .txt 파일을 열고, 쓰고, 손에 익은 단축키로 저장하세요.
 
 ## macOS용 다운로드
 
-- **[Apple Silicon(M 시리즈)용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-arm64.pkg)**
-- **[Intel용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-x86_64.pkg)**
+- **[Apple Silicon(M 시리즈)용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.7/My-Notepad-1.0.7-arm64.pkg)**
+- **[Intel용 다운로드](https://github.com/leoars/My-Notepad/releases/download/1.0.7/My-Notepad-1.0.7-x86_64.pkg)**
 
 macOS 12 이상이 필요합니다. [최신 릴리스 보기](https://github.com/leoars/My-Notepad/releases/latest)
 
-My Explorer, My Notepad, My Paint를 한 번에 설치하려면 [My 스위트 설치 프로그램](https://github.com/leoars/my-suite/blob/main/docs/readme/en.md)을 사용하세요.
+My Explorer, My Notepad, My Paint, My Calc를 한 번에 설치하려면 [My 스위트 설치 프로그램](https://github.com/leoars/my-suite/blob/main/docs/readme/ko.md)을 사용하세요.
 
 ![현장 노트를 연 편집기. ‘다리’가 선택되어 있고 창 아래에 커서의 줄과 열이 표시됩니다.](../screenshots/ko-editor.png)
 
@@ -102,11 +102,13 @@ My Notepad는 군더더기 없는 텍스트 편집기가 아쉬워서 시작한 
 
 ## My 스위트의 일부
 
-My Notepad는 My 스위트에 속한 앱입니다. My 스위트는 익숙한 메뉴와 단축키를 갖춘, 간단하고 직관적인 세 가지 macOS 앱으로 이루어져 있습니다.
+My Notepad는 My 스위트에 속한 앱입니다. My 스위트는 익숙한 메뉴와 단축키를 갖춘, 간단하고 직관적인 네 가지 macOS 앱으로 이루어져 있습니다.
 
 - **My Notepad**(이 저장소): 간단한 텍스트 편집기.
 - **[My Explorer](https://github.com/leoars/my-explorer/blob/main/README.ko.md)**: 폴더 트리, 탭, 명령 모음을 갖춘 파일 관리자. My Notepad가 설치되어 있으면 My Explorer에서 .txt 파일을 두 번 클릭할 때 이 편집기에서 열리고, 컨텍스트 메뉴에 **My Notepad로 편집** 이 추가됩니다.
 - **[My Paint](https://github.com/leoars/my-paint/blob/main/docs/readme/ko.md)**: 간단한 이미지 편집기.
+- **[My Calc](https://github.com/leoars/my-calc/blob/main/docs/readme/ko.md)**: 간단한 계산기.
+- **[My Suite](https://github.com/leoars/my-suite/blob/main/docs/readme/ko.md)**: 네 앱을 한데 모은 설치 프로그램으로, 설치할 앱을 고를 수 있습니다.
 
 ## Mac에서 빌드 및 설치
 

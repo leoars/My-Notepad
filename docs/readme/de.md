@@ -2,18 +2,18 @@
 
 [Português (Brasil)](../../README.md) · [English](en.md) · [Español](es.md) · [Français](fr.md) · **Deutsch** · [Italiano](it.md) · [日本語](ja.md) · [한국어](ko.md)
 
-**My-Suite:** [My Explorer](https://github.com/leoars/my-explorer/blob/main/README.de.md) · **My Notepad** · [My Paint](https://github.com/leoars/my-paint/blob/main/docs/readme/de.md)
+**My-Suite:** [My Explorer](https://github.com/leoars/my-explorer/blob/main/README.de.md) · **My Notepad** · [My Paint](https://github.com/leoars/my-paint/blob/main/docs/readme/de.md) · [My Calc](https://github.com/leoars/my-calc/blob/main/docs/readme/de.md)
 
 Ein einfacher Texteditor für macOS. Eine .txt-Datei öffnen, schreiben und mit den Tastenkürzeln speichern, die Ihre Hände längst kennen.
 
 ## Download für macOS
 
-- **[Für Apple Silicon (M-Serie) herunterladen](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-arm64.pkg)**
-- **[Für Intel herunterladen](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-x86_64.pkg)**
+- **[Für Apple Silicon (M-Serie) herunterladen](https://github.com/leoars/My-Notepad/releases/download/1.0.7/My-Notepad-1.0.7-arm64.pkg)**
+- **[Für Intel herunterladen](https://github.com/leoars/My-Notepad/releases/download/1.0.7/My-Notepad-1.0.7-x86_64.pkg)**
 
 Erfordert macOS 12 oder neuer. [Zur neuesten Version](https://github.com/leoars/My-Notepad/releases/latest)
 
-Um My Explorer, My Notepad und My Paint auf einmal zu installieren, nutze das [Installationsprogramm der My-Suite](https://github.com/leoars/my-suite/blob/main/docs/readme/en.md).
+Um My Explorer, My Notepad, My Paint und My Calc auf einmal zu installieren, nutze das [Installationsprogramm der My-Suite](https://github.com/leoars/my-suite/blob/main/docs/readme/de.md).
 
 ![Feldnotizen im Editor mit dem markierten Wort „Brücke“ und der Cursorposition in der Statusleiste.](../screenshots/de-editor.png)
 
@@ -102,11 +102,13 @@ Die Tastenkürzel mit `Strg` funktionieren so, wie Sie es gewohnt sind; die Kür
 
 ## Teil der My-Suite
 
-My Notepad gehört zur My-Suite: drei einfache, geradlinige Apps für macOS, mit den vertrauten Menüs und Tastenkürzeln.
+My Notepad gehört zur My-Suite: vier einfache, geradlinige Apps für macOS, mit den vertrauten Menüs und Tastenkürzeln.
 
 - **My Notepad** (dieses Repository): ein einfacher Texteditor.
 - **[My Explorer](https://github.com/leoars/my-explorer/blob/main/README.de.md)**: ein Dateimanager mit Ordnerbaum, Tabs und einer Befehlsleiste. Ist My Notepad installiert, öffnet ein Doppelklick auf eine .txt-Datei in My Explorer den Text hier, und das Kontextmenü erhält den Eintrag **Mit My Notepad bearbeiten**.
 - **[My Paint](https://github.com/leoars/my-paint/blob/main/docs/readme/de.md)**: ein einfaches Bildbearbeitungsprogramm.
+- **[My Calc](https://github.com/leoars/my-calc/blob/main/docs/readme/de.md)**: ein einfacher Rechner.
+- **[My Suite](https://github.com/leoars/my-suite/blob/main/docs/readme/de.md)**: das Installationsprogramm, das die vier Apps zusammenbringt; du wählst, welche installiert werden.
 
 ## Auf dem Mac bauen und installieren
 

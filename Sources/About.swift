@@ -66,7 +66,8 @@ extension Notepad {
     header.alignment = .top
     header.spacing = 20
     let suite = NSStackView(views: [text(L("about.suite")), link("My Explorer", github + "/my-explorer"), text("·"),
-                                   link("My Paint", github + "/my-paint")])
+                                   link("My Paint", github + "/my-paint"), text("·"),
+                                   link("My Calc", github + "/my-calc")])
     let legalLinks = NSStackView(views: [link(L("about.license"), "LICENSE"), text("·"),
                                         link(L("about.notices"), "THIRD_PARTY_NOTICES.md")])
     let repo = github + "/My-Notepad"

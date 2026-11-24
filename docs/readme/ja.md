@@ -2,18 +2,18 @@
 
 [Português (Brasil)](../../README.md) · [English](en.md) · [Español](es.md) · [Français](fr.md) · [Deutsch](de.md) · [Italiano](it.md) · **日本語** · [한국어](ko.md)
 
-**My スイート:** [My Explorer](https://github.com/leoars/my-explorer/blob/main/README.ja.md) · **My Notepad** · [My Paint](https://github.com/leoars/my-paint/blob/main/docs/readme/ja.md)
+**My スイート:** [My Explorer](https://github.com/leoars/my-explorer/blob/main/README.ja.md) · **My Notepad** · [My Paint](https://github.com/leoars/my-paint/blob/main/docs/readme/ja.md) · [My Calc](https://github.com/leoars/my-calc/blob/main/docs/readme/ja.md)
 
 macOS 用のシンプルなテキストエディタです。.txt ファイルを開き、書いて、手になじんだショートカットで保存できます。
 
 ## macOS 版のダウンロード
 
-- **[Apple シリコン（M シリーズ）用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-arm64.pkg)**
-- **[Intel 用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.6/My-Notepad-1.0.6-x86_64.pkg)**
+- **[Apple シリコン（M シリーズ）用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.7/My-Notepad-1.0.7-arm64.pkg)**
+- **[Intel 用をダウンロード](https://github.com/leoars/My-Notepad/releases/download/1.0.7/My-Notepad-1.0.7-x86_64.pkg)**
 
 macOS 12 以降に対応しています。 [最新版を見る](https://github.com/leoars/My-Notepad/releases/latest)
 
-My Explorer、My Notepad、My Paint をまとめてインストールするには、[My スイートのインストーラ](https://github.com/leoars/my-suite/blob/main/docs/readme/en.md)を使ってください。
+My Explorer、My Notepad、My Paint、My Calc をまとめてインストールするには、[My スイートのインストーラ](https://github.com/leoars/my-suite/blob/main/docs/readme/ja.md)を使ってください。
 
 ![観察ノートを開いた編集画面。「橋」が選択され、下部にはカーソルの行と列が表示されています。](../screenshots/ja-editor.png)
 
@@ -102,11 +102,13 @@ My Notepad は、余計なもののないテキストエディタが欲しいと
 
 ## My スイートのひとつ
 
-My Notepad は My スイートのひとつです。My スイートは、おなじみのメニューとショートカットを備えた、シンプルで分かりやすい三つの macOS アプリで構成されています。
+My Notepad は My スイートのひとつです。My スイートは、おなじみのメニューとショートカットを備えた、シンプルで分かりやすい四つの macOS アプリで構成されています。
 
 - **My Notepad**（このリポジトリ）：シンプルなテキストエディタ。
 - **[My Explorer](https://github.com/leoars/my-explorer/blob/main/README.ja.md)**：フォルダツリー、タブ、コマンドバーを備えたファイルマネージャ。My Notepad をインストールしてあれば、My Explorer で .txt ファイルをダブルクリックするとこのエディタで開き、コンテキストメニューに **My Notepad で編集** が加わります。
 - **[My Paint](https://github.com/leoars/my-paint/blob/main/docs/readme/ja.md)**：シンプルな画像エディタ。
+- **[My Calc](https://github.com/leoars/my-calc/blob/main/docs/readme/ja.md)**：シンプルな計算機。
+- **[My Suite](https://github.com/leoars/my-suite/blob/main/docs/readme/ja.md)**：4 つのアプリをまとめたインストーラ。インストールするアプリを選べます。
 
 ## Mac でのビルドとインストール
 
